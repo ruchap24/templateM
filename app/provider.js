@@ -7,7 +7,9 @@ function provider({children}) {
   return (
     <>
     <ConvexProvider client={convex}>
+    <GoogleOAuthProvider clientId="<your_client_id>">
         <div>{children}</div>
+        </GoogleOAuthProvider>
     </ConvexProvider>;
     </>
   )
