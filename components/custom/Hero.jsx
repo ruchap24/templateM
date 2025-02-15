@@ -1,4 +1,6 @@
 import React from 'react'
+import { Button } from '../ui/button'
+import Image from 'next/image'
 
 function Hero() {
   return (
@@ -7,6 +9,11 @@ function Hero() {
             <span className='text-primary'>Email Templates</span>
         </h2>
         <p className='text-center text-lg mt-4'>Create beautiful email templates with ai power.</p>
+        <div className='flex gap-5 mt-6'>
+            <Button variant="outline">Try Demo</Button>
+            <Button>Get Started</Button>
+        </div>
+        <Image src={'/landing.webp'} alt="Landing" width={1000} height={800} className='mt-12 rounded-xl'/>
     </div>
   )
 }

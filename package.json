@@ -10,8 +10,10 @@
   },
   "dependencies": {
     "@radix-ui/react-slot": "^1.1.2",
+    "@react-oauth/google": "^0.12.1",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
+    "convex": "^1.19.2",
     "lucide-react": "^0.475.0",
     "next": "15.1.7",
     "react": "^18.0.0",
