@@ -3,9 +3,12 @@ import React from 'react'
 import { Button } from '../ui/button'
 import { useGoogleLogin } from '@react-oauth/google';
 import axios from 'axios';
+import { useMutation } from 'convex/react';
+import { api } from '@/convex/_generated/api';
 
 function SignInButton() {
-    
+
+const CreateUser=useMutation(api.users.CreateUser)
 const googleLogin = useGoogleLogin({
     onSuccess: async (tokenResponse) => {
       console.log(tokenResponse);
@@ -15,10 +18,17 @@ const googleLogin = useGoogleLogin({
       );
   
       console.log(userInfo.data);
+      const user=userInfo.data;
 
       if(typeof window!==undefined){
-        localStorage.setItem('userDetail', JSON.stringify(userInfo?.data));
+        localStorage.setItem('userDetail', JSON.stringify(user));
     }
+    await CreateUser({
+      name:user?.name,
+      email:user?.email,
+      picture:user?.picture
+    }
+    )
   },
     onError: errorResponse => console.log(errorResponse),
   });
