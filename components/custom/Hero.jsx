@@ -12,9 +12,9 @@ function Hero() {
         <p className='text-center text-lg mt-4'>Create beautiful email templates with ai power.</p>
         <div className='flex gap-5 mt-6'>
             <Button variant="outline">Try Demo</Button>
-            {/* <SignInButton/> */}
+            <SignInButton/>
         </div>
-        <Image src={'/landing.webp'} alt="Landing" width={1000} height={800} className='mt-12 rounded-xl'/>
+        {/* <Image src={'/landing.webp'} alt="Landing" width={1000} height={800} className='mt-12 rounded-xl'/> */}
     </div>
   )
 }
