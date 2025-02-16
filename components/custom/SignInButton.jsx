@@ -20,15 +20,20 @@ const googleLogin = useGoogleLogin({
       console.log(userInfo.data);
       const user=userInfo.data;
 
-      if(typeof window!==undefined){
-        localStorage.setItem('userDetail', JSON.stringify(user));
-    }
-    await CreateUser({
+    
+    const result= await CreateUser({
       name:user?.name,
       email:user?.email,
       picture:user?.picture
+    })
+
+    const userDetail={
+      ...user,
+      _id:result?.id??result
     }
-    )
+    if(typeof window!==undefined){
+      localStorage.setItem('userDetail', JSON.stringify(userDetail));
+  }
   },
     onError: errorResponse => console.log(errorResponse),
   });
