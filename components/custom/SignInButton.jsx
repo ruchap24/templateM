@@ -34,6 +34,7 @@ const googleLogin = useGoogleLogin({
     if(typeof window!==undefined){
       localStorage.setItem('userDetail', JSON.stringify(userDetail));
   }
+  
   },
     onError: errorResponse => console.log(errorResponse),
   });
