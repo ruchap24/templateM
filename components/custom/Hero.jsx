@@ -14,7 +14,7 @@ function Hero() {
             <Button variant="outline">Try Demo</Button>
             <SignInButton/>
         </div>
-        {/* <Image src={'/landing.webp'} alt="Landing" width={1000} height={800} className='mt-12 rounded-xl'/> */}
+        <Image src={'/landing.webp'} alt="Landing" width={1000} height={800} className='mt-12 rounded-xl'/>
     </div>
   )
 }

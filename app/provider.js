@@ -4,13 +4,14 @@ import { ConvexProvider, ConvexReactClient } from "convex/react";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 import { User } from 'lucide-react';
 import { UserDetailContext } from '@/context/UserDetailContext';
+import { useState } from 'react';
 
 function Provider({children}) {
     const convex = new ConvexReactClient(process.env.NEXT_PUBLIC_CONVEX_URL);
     const [userDetail, setUserDetail] = useState();
 
     useEffect(()=>{
-      if(typeof window!==undefined){
+      if(typeof window!=='undefined'){
         const storage=JSON.parse(localStorage.getItem('userDetail'));
         if(!storage?.email || !storage){
           //redirect to home screen
@@ -34,6 +35,6 @@ function Provider({children}) {
 
 export default Provider;
 
-export const UserDetailContext=()=>{
+export const UserDetail=()=>{
   return useContext(UserDetailContext)
 }
