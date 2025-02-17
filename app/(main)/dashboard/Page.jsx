@@ -8,7 +8,7 @@ function Dashboard() {
   return (
     <div>
         <Header/>
-        <div>
+        <div className='px-10 md:px-28 lg:px-40 xl:px-56'>
             <div>
                 <h2>Hello,{userDetail?.name}</h2>
             </div>
