@@ -5,10 +5,12 @@ import { GoogleOAuthProvider } from "@react-oauth/google";
 import { User } from 'lucide-react';
 import { UserDetailContext } from '@/context/UserDetailContext';
 import { useState } from 'react';
+import { ScreenSizeContext } from '@/context/ScreenSizeContext';
 
 function Provider({children}) {
     const convex = new ConvexReactClient(process.env.NEXT_PUBLIC_CONVEX_URL);
     const [userDetail, setUserDetail] = useState();
+    const [screenSize,setScreenSize]=useState('desktop');
 
     useEffect(()=>{
       if(typeof window!=='undefined'){
@@ -26,7 +28,9 @@ function Provider({children}) {
     <ConvexProvider client={convex}>
     <GoogleOAuthProvider clientId={process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID}>
       <UserDetailContext.Provider value={{userDetail, setUserDetail}}>
-        <div>{children}</div>
+        <ScreenSizeContext.Provider value={{screenSize,setScreenSize}}>
+           <div>{children}</div>
+        </ScreenSizeContext.Provider>
       </UserDetailContext.Provider>
         </GoogleOAuthProvider>
     </ConvexProvider>
@@ -37,4 +41,8 @@ export default Provider;
 
 export const UserDetail=()=>{
   return useContext(UserDetailContext)
+}
+
+export const useScreenSize=()=>{
+  return useContext(ScreenSizeContext);
 }
