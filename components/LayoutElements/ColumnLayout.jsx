@@ -1,12 +1,38 @@
+"use client"
+import { useState } from 'react';
+import { useDragElementLayout, useEmailTemplate } from '@/app/provider';
 import React from 'react'
 
 function ColumnLayout({layout}) {
 
+    const [dragOver, setDragOver]= useState();
+    const { emailTemplate, setEmailTemplate } = useEmailTemplate();
+    const { dragElementLayout, setDragElementLayout } = useDragElementLayout();
 
     const onDragOverHandler=(event, index)=>{
         event.preventDefault();
+        setDragOver({
+            index:index,
+            columId:layout?.id
+        })
     }
-    
+
+    const onDropHandle=()=>{
+        const index=dragOver.index;
+        setEmailTemplate(prevItems=>prevItems.map(
+            col=>col.id===layout?.id?{
+                ...col,
+                [index]:dragElementLayout?.dragElement
+            }:col)
+        )
+        setDragOver(null);
+    }
+
+    const GetElementComponent=(element)=>{
+        console.log(element)
+        return element?.type
+    }
+
   return (
     <div>
         <div style={{
@@ -15,8 +41,9 @@ function ColumnLayout({layout}) {
             gap:'0px'
         }}>
             {Array.from({length:layout?.numOfCol}).map((_,index)=>(
-                <div key={index} className='p-2 flex items-center bg-gray-100 border border-dashed justify-center' onDragOver={(event)=>onDragOverHandler(event,index)}>
-                    {index+1}
+                <div key={index} className={`p-2 flex items-center bg-gray-100 border border-dashed justify-center 
+                ${(index==dragOver?.index && dragOver?.columId)&&`bg-green-100`}`} onDragOver={(event)=>onDragOverHandler(event,index)} onDrop={onDropHandle}>
+                    {GetElementComponent(layout?.[index])??'Drag Element Here'}
                 </div>
         ))}
         </div>
