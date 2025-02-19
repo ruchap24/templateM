@@ -1,6 +1,8 @@
 "use client"
 import { useState } from 'react';
 import { useDragElementLayout, useEmailTemplate } from '@/app/provider';
+import ButtonComponent from '@/components/custom/Element/ButtonComponent';
+import TextComponent from '@/components/custom/Element/TextComponent';
 import React from 'react'
 
 function ColumnLayout({layout}) {
@@ -29,7 +31,14 @@ function ColumnLayout({layout}) {
     }
 
     const GetElementComponent=(element)=>{
-        console.log(element)
+        if(element?.type=='Button'){
+            return <ButtonComponent {...element}/>
+        }
+        else if(element?.type=='Text'){
+            return <TextComponent {...element}/>
+
+        }
+        
         return element?.type
     }
 
@@ -41,8 +50,9 @@ function ColumnLayout({layout}) {
             gap:'0px'
         }}>
             {Array.from({length:layout?.numOfCol}).map((_,index)=>(
-                <div key={index} className={`p-2 flex items-center bg-gray-100 border border-dashed justify-center 
-                ${(index==dragOver?.index && dragOver?.columId)&&`bg-green-100`}`} onDragOver={(event)=>onDragOverHandler(event,index)} onDrop={onDropHandle}>
+                <div key={index} className={`p-2 flex items-center 
+                ${!layout?.[index]?.type && 'bg-gray-100 border border-dashed justify-center'} 
+                ${(index==dragOver?.index && dragOver?.columId) && 'bg-green-100'}`} onDragOver={(event)=>onDragOverHandler(event,index)} onDrop={onDropHandle}>
                     {GetElementComponent(layout?.[index])??'Drag Element Here'}
                 </div>
         ))}
