@@ -7,6 +7,7 @@ import { useState } from 'react';
 import { ScreenSizeContext } from '@/context/ScreenSizeContext';
 import { DragDropLayoutElement } from '@/context/DragDropLayoutElement';
 import { EmailTemplateContext } from '@/context/EmailTemplateContext';
+import { SelectedElementContext } from '@/context/SelectedElementContext';
 
 function Provider({children}) {
     const convex = new ConvexReactClient(process.env.NEXT_PUBLIC_CONVEX_URL);
@@ -14,6 +15,7 @@ function Provider({children}) {
     const [screenSize,setScreenSize]=useState('desktop');
     const [dragElementLayout, setDragElementLayout] = useState();
     const [emailTemplate, setEmailTemplate]=useState([]);
+    const [selectedElement, setSelectedElement]=useState();
 
     useEffect(()=>{
       if(typeof window!=='undefined'){
@@ -42,7 +44,9 @@ function Provider({children}) {
         <ScreenSizeContext.Provider value={{screenSize,setScreenSize}}>
           <DragDropLayoutElement.Provider value={{dragElementLayout, setDragElementLayout}}>
             <EmailTemplateContext.Provider value={{emailTemplate, setEmailTemplate}}>
+              <SelectedElementContext.Provider value={{selectedElement, setSelectedElement}}>
               <div>{children}</div>
+              </SelectedElementContext.Provider>
             </EmailTemplateContext.Provider>
           </DragDropLayoutElement.Provider>
         </ScreenSizeContext.Provider>
@@ -68,4 +72,8 @@ export const useDragElementLayout=()=>{
 
 export const useEmailTemplate=()=>{
   return useContext(EmailTemplateContext);
+}
+
+export const useSelectedElement=()=>{
+  return useContext(SelectedElementContext);
 }
