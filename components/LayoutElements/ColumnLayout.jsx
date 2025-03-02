@@ -5,6 +5,7 @@ import ButtonComponent from '@/components/custom/Element/ButtonComponent';
 import TextComponent from '@/components/custom/Element/TextComponent';
 import ImageComponent from '../custom/Element/ImageComponent';
 import React from 'react'
+import LogoComponent from '../custom/Element/LogoComponent';
 
 function ColumnLayout({layout}) {
 
@@ -40,6 +41,9 @@ function ColumnLayout({layout}) {
         }
         else if(element?.type=='Image'){
             return <ImageComponent {...element}/>
+        }
+        else if(element?.type=='Logo'){
+            return <LogoComponent {...element}/>
         }
         return element?.type
     }
