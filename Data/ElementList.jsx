@@ -1,4 +1,5 @@
-import { Columns2, Facebook, Frame, Framer, Image, Link2, PanelTop, Projector, RectangleEllipsis, SquareSplitVertical, Text, TextSelectionIcon, Twitter } from "lucide-react";
+import { Columns2, Facebook, Frame, Framer, Image, Link2, PanelTop, Projector, RectangleEllipsis, 
+SquareSplitVertical, Text, TextSelectionIcon, Twitter } from "lucide-react";
 
 
 export default [
@@ -51,7 +52,7 @@ export default [
         icon: Image,
         type: 'Image',
         label: 'Image',
-        imageUrl: "/image.png",
+        imageUrl: "/imgplaceholder.png",
         alt: 'Image',
         url: '#',
         style: {
