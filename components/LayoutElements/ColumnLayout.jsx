@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { useDragElementLayout, useEmailTemplate } from '@/app/provider';
 import ButtonComponent from '@/components/custom/Element/ButtonComponent';
 import TextComponent from '@/components/custom/Element/TextComponent';
+import ImageComponent from '../custom/Element/ImageComponent';
 import React from 'react'
 
 function ColumnLayout({layout}) {
@@ -36,9 +37,10 @@ function ColumnLayout({layout}) {
         }
         else if(element?.type=='Text'){
             return <TextComponent {...element}/>
-
         }
-        
+        else if(element?.type=='Image'){
+            return <ImageComponent {...element}/>
+        }
         return element?.type
     }
 
