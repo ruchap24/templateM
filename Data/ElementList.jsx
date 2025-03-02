@@ -82,7 +82,7 @@ export default [
             backgroundColor: '#ffffff',
             padding: '10px',
             height: '30%',
-            width: '30%',
+            width: '100%',
         },
         outerStyle: {
             display: 'flex',
