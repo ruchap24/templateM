@@ -1,6 +1,6 @@
 import React from 'react'
 
-function inputField({label, value}) {
+function InputField({label, value, onHandleInputChange}) {
   return (
     <div>
         <label>{label}</label>
@@ -9,4 +9,4 @@ function inputField({label, value}) {
   )
 }
 
-export default inputField
+export default InputField

@@ -1,7 +1,7 @@
 "use client"
 import { useSelectedElement } from '@/app/provider'
 import React, { useEffect, useState} from 'react';
-import inputField from './Settings/inputField';
+import InputField from './Settings/InputField';
 
 function Settings() {
   const { selectedElement, setSelectedElement } = useSelectedElement();
