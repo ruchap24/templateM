@@ -2,6 +2,7 @@
 import { useSelectedElement } from '@/app/provider'
 import React, { useEffect, useState} from 'react';
 import InputField from './Settings/InputField';
+import ColorPickerField from './Settings/ColorPickerField';
 
 function Settings() {
   const { selectedElement, setSelectedElement } = useSelectedElement();
@@ -19,12 +20,25 @@ function Settings() {
 
     setSelectedElement(updatedData);
   };
+
+  const onHandleStyleChange = (fieldName, fieldValue) => {
+    const updatedData = { ...selectedElement};
+
+    updatedData.layout[selectedElement.index].style[fieldName] = fieldValue;
+
+    setSelectedElement(updatedData);
+  }
+
   return (
     <div className='p-5'>
       <h2 className='font-bold text-xl'>Settings</h2>
       {element?.content &&
       <InputField label={'Content'} value={element?.content} 
       onHandleInputChange={(value)=>onHandleInputChange('content',value)}/>}
+      {element?.style?.backgroundColor && 
+          <ColorPickerField label='Background Color' value={element?.style?.backgroundColor}
+      onHandleStyleChange={(value)=>onHandleStyleChange('backgroundColor',value)}/>
+      }
     </div>
   )
 }
