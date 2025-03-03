@@ -22,11 +22,17 @@ function Settings() {
   };
 
   const onHandleStyleChange = (fieldName, fieldValue) => {
-    const updatedData = { ...selectedElement};
+    let updatedElement = { ...selectedElement,
+      layout:{
+      ...selectedElement?.layout,
+      [selectedElement?.index[selectedElement?.index]]:{
+    ...selectedElement?.layout[selectedElement?.index],
+    style:{
+      ...selectedElement?.layout[selectedElement?.index]?.style,
+      [fieldName]:fieldValue
+    } };
 
-    updatedData.layout[selectedElement.index].style[fieldName] = fieldValue;
-
-    setSelectedElement(updatedData);
+    setSelectedElement(updatedElement);
   }
 
   return (
