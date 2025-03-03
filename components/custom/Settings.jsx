@@ -5,7 +5,7 @@ import InputField from './Settings/InputField';
 
 function Settings() {
   const { selectedElement, setSelectedElement } = useSelectedElement();
-  const [element, setElement] = useState();
+  const [element, setElement] = useState(null);
   useEffect(() => {
     console.log(selectedElement?.layout?.[selectedElement?.index]);
     setElement(selectedElement?.layout?.[selectedElement?.index]);
@@ -15,7 +15,7 @@ function Settings() {
     console.log(fieldName,"value"+ value);
   };
   return (
-    <div children='p-5'>
+    <div className='p-5'>
       <h2 className='font-bold text-xl'>Settings</h2>
       {element?.content &&
       <InputField label={'Content'} value={element?.content} 
