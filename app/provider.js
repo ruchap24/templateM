@@ -11,11 +11,11 @@ import { SelectedElementContext } from '@/context/SelectedElementContext';
 
 function Provider({children}) {
     const convex = new ConvexReactClient(process.env.NEXT_PUBLIC_CONVEX_URL);
-    const [userDetail, setUserDetail] = useState();
+    const [userDetail, setUserDetail] = useState(null);
     const [screenSize,setScreenSize]=useState('desktop');
-    const [dragElementLayout, setDragElementLayout] = useState();
+    const [dragElementLayout, setDragElementLayout] = useState(null);
     const [emailTemplate, setEmailTemplate]=useState([]);
-    const [selectedElement, setSelectedElement]=useState();
+    const [selectedElement, setSelectedElement]=useState(null);
 
     useEffect(()=>{
       if(typeof window!=='undefined'){
@@ -35,7 +35,22 @@ function Provider({children}) {
       if(typeof window!=='undefined'){
         localStorage.setItem('emailTemplate', JSON.stringify(emailTemplate));
       }
-    },[emailTemplate])
+    },[emailTemplate]);
+
+    useEffect(()=>{
+      if(selectedElement){
+        let updatedEmailTemplates=[];
+        emailTemplate.forEach((item,index)=>{
+          if(item.id===selectedElement?.layout?.id){
+            updatedEmailTemplates.push(selectedElement?.layout);
+          }
+          else{
+            updatedEmailTemplates.push(item);
+          }
+        });
+        setEmailTemplate(updatedEmailTemplates);
+      }
+    },[selectedElement])
 
   return (
     <ConvexProvider client={convex}>

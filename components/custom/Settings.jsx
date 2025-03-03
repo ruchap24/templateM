@@ -5,7 +5,7 @@ import InputField from './Settings/InputField';
 
 function Settings() {
   const { selectedElement, setSelectedElement } = useSelectedElement();
-  const [element, setElement] = useState(null);
+  const [element, setElement] = useState();
   useEffect(() => {
     console.log(selectedElement?.layout?.[selectedElement?.index]);
     setElement(selectedElement?.layout?.[selectedElement?.index]);
