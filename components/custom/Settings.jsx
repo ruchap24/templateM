@@ -7,13 +7,19 @@ function Settings() {
   const { selectedElement, setSelectedElement } = useSelectedElement();
   const [element, setElement] = useState();
   useEffect(() => {
+    console.log(selectedElement?.layout?.[selectedElement?.index]);
     setElement(selectedElement?.layout?.[selectedElement?.index]);
   }, [selectedElement]);
+
+  const onHandleInputChange = (fieldName, value) => {
+    console.log(fieldName,"value"+ value);
+  };
   return (
     <div children='p-5'>
       <h2 className='font-bold text-xl'>Settings</h2>
-      {selectedElement?.layout?.content &&
-      <InputField/>}
+      {element?.content &&
+      <InputField label={'Content'} value={element?.content} 
+      onHandleInputChange={(value)=>onHandleInputChange('content',value)}/>}
     </div>
   )
 }
