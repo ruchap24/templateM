@@ -13,6 +13,11 @@ function Settings() {
 
   const onHandleInputChange = (fieldName, value) => {
     console.log(fieldName,"value"+ value);
+    const updatedData = { ...selectedElement};
+
+    updatedData.layout[selectedElement.index][fieldName] = value;
+
+    setSelectedElement(updatedData);
   };
   return (
     <div className='p-5'>
