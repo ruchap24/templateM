@@ -30,7 +30,7 @@ function Settings() {
     style:{
       ...selectedElement?.layout[selectedElement?.index]?.style,
       [fieldName]:fieldValue
-    } };
+    } }}};
 
     setSelectedElement(updatedElement);
   }
