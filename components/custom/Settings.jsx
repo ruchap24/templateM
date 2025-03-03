@@ -22,6 +22,8 @@ function Settings() {
   };
 
   const onHandleStyleChange = (fieldName, fieldValue) => {
+
+
     let updateElement = {
       ...selectedElement,
       layout: {
@@ -30,7 +32,7 @@ function Settings() {
           ...selectedElement?.layout[selectedElement?.index],
           style: {
             ...selectedElement?.layout[selectedElement?.index]?.style,
-            [fieldName]: fieldValue,
+            [fieldName]: [fieldValue],
           },
         },
       },
@@ -46,6 +48,13 @@ function Settings() {
         <InputField
           label={"Content"}
           value={element?.content}
+          onHandleInputChange={(value) => onHandleInputChange("content", value)}
+        />
+      )}
+      {element?.url && (
+        <InputField
+          label={"url"}
+          value={element?.url}
           onHandleInputChange={(value) => onHandleInputChange("content", value)}
         />
       )}
