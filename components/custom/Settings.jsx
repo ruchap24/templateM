@@ -22,15 +22,22 @@ function Settings() {
   };
 
   const onHandleStyleChange = (fieldName, fieldValue) => {
-    let updateElement = { ...selectedElement,
-      layout:{
-      ...selectedElement?.layout,
-      [selectedElement?.index]:{
-    ...selectedElement?.layout[selectedElement?.index],
-    style:{
-      ...selectedElement?.layout[selectedElement?.index]?.style,
-      [fieldName]:[fieldValue]
-    } }}};
+    let updateElement = { 
+      ...selectedElement,
+      layout: {
+        ...selectedElement?.layout,
+        [selectedElement?.index]: {
+          ...selectedElement?.layout[selectedElement?.index],
+          style: {
+            ...selectedElement?.layout[selectedElement?.index]?.style,
+            [fieldName]: fieldValue  // Removed the array brackets []
+          }
+        }
+      }
+    };
+  
+    setSelectedElement(updateElement);
+  };
 
     setSelectedElement(updateElement);
   }
