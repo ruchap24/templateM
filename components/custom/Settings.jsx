@@ -3,6 +3,7 @@ import { useSelectedElement } from "@/app/provider";
 import React, { useEffect, useState } from "react";
 import InputField from "./Settings/InputField";
 import ColorPickerField from "./Settings/ColorPickerField";
+import InputStyleField from "./Settings/InputStyleField";
 
 function Settings() {
   const { selectedElement, setSelectedElement } = useSelectedElement();
@@ -42,9 +43,9 @@ function Settings() {
   };
 
   return (
-    <div className="p-5">
+    <div className="p-5 flex flex-col gap-4">
       <h2 className="font-bold text-xl">Settings</h2>
-      {element?.content && (
+      {element?.content && ( //remove this paranthesis()
         <InputField
           label={"Content"}
           value={element?.content}
@@ -55,7 +56,7 @@ function Settings() {
         <InputField
           label={"url"}
           value={element?.url}
-          onHandleInputChange={(value) => onHandleInputChange("content", value)}
+          onHandleInputChange={(value) => onHandleInputChange("url", value)}
         />
       )}
       {element?.style?.backgroundColor && (
@@ -67,6 +68,23 @@ function Settings() {
           }
         />
       )}
+      {element?.style?.color && (
+        <ColorPickerField
+          label="Text Color"
+          value={element?.style?.color}
+          onHandleStyleChange={(value) =>
+            onHandleStyleChange("color", value)
+          }
+        />
+      )}
+      {element?.style?.fontSize &&
+      <InputStyleField label={'Font size'} value={element?.style?.fontSize} onHandleStyleChange={(value)=>onHandleInputChange('fontSize',value)} />
+      }
+      {element?.style?.padding &&
+      <InputStyleField label={'Padding'} 
+          value={element?.style?.padding} 
+          onHandleStyleChange={(value)=>onHandleInputChange('padding',value)} />
+      }
     </div>
   );
 }
