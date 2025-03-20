@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import InputField from "./Settings/InputField";
 import ColorPickerField from "./Settings/ColorPickerField";
 import InputStyleField from "./Settings/InputStyleField";
+import SliderField from "./Settings/SliderField";
 
 function Settings() {
   const { selectedElement, setSelectedElement } = useSelectedElement();
@@ -59,6 +60,12 @@ function Settings() {
           onHandleInputChange={(value) => onHandleInputChange("url", value)}
         />
       )}
+      {element?.style?.width &&
+      <SliderField label={'Width'} 
+          value={element?.style?.width} 
+          type="%"
+          onHandleStyleChange={(value)=>onHandleInputChange('width',value)} />
+      }
       {element?.style?.backgroundColor && (
         <ColorPickerField
           label="Background Color"
@@ -85,6 +92,12 @@ function Settings() {
           value={element?.style?.padding} 
           onHandleStyleChange={(value)=>onHandleInputChange('padding',value)} />
       }
+      {element?.style?.borderRadius &&
+      <SliderField label={'Border Radius'} 
+          value={element?.style?.borderRadius} 
+          onHandleStyleChange={(value)=>onHandleInputChange('borderRadius',value)} />
+      }
+      
     </div>
   );
 }
