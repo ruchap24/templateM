@@ -4,7 +4,7 @@ import { Input } from '@/components/ui/input'
 function InputStyleField({label,value,onHandleStyleChange,type='px'}) {
 
     const FormattedValue=(value_)=>{
-        return Number(value_.toString().replace('px',''));
+        return Number(value_.toString().replace(type,''));
     }
   return (
     <div>
@@ -13,7 +13,7 @@ function InputStyleField({label,value,onHandleStyleChange,type='px'}) {
         <Input type="text" value={FormattedValue(value)} 
         onChange={(e)=>onHandleStyleChange(e.target.value+ type)}
         />
-        <h2 className='p-1.5 bg-gray-100 rounded-r-lg -ml-1'>px</h2>
+        <h2 className='p-1.5 bg-gray-100 rounded-r-lg -ml-1'>{type}</h2>
         </div>
     </div>
   )
