@@ -8,4 +8,5 @@ function TextComponent({style, content}) {
   )
 }
 
+
 export default TextComponent
