@@ -9,6 +9,7 @@ import TextAreaField from "./Settings/TextAreaField";
 import ToogleGroupField from "./Settings/ToogleGroupField";
 import { AArrowUp, CaseLower, CaseUpper } from "lucide-react";
 import DropdownField from "./Settings/DropdownField";
+import ImagePreview from "./Element/ImagePreview";
 
 const TextAlignOptions = [
   {
@@ -80,6 +81,13 @@ function Settings() {
   return (
     <div className="p-5 flex flex-col gap-4">
       <h2 className="font-bold text-xl">Settings</h2>
+      {element?.imageUrl && ( //remove this paranthesis()
+        <ImagePreview
+          label={"Image Preview"}
+          value={element?.imageUrl}
+          onHandleInputChange={(value) => onHandleInputChange("imageUrl", value)}
+        />
+      )}
       {element?.content && ( //remove this paranthesis()
         <InputField
           label={"Content"}
