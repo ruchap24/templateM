@@ -78,6 +78,26 @@ function Settings() {
     setSelectedElement(updateElement);
   };
 
+  const onHandleOuterStyleChange = (fieldName, fieldValue) => {
+
+
+    let updateElement = {
+      ...selectedElement,
+      layout: {
+        ...selectedElement?.layout,
+        [selectedElement?.index]: {
+          ...selectedElement?.layout[selectedElement?.index],
+          outerStyle: {
+            ...selectedElement?.layout[selectedElement?.index]?.outerStyle,
+            [fieldName]: [fieldValue],
+          },
+        },
+      },
+    };
+
+    setSelectedElement(updateElement);
+  };
+
   return (
     <div className="p-5 flex flex-col gap-4">
       <h2 className="font-bold text-xl">Settings</h2>
@@ -171,6 +191,13 @@ function Settings() {
           onHandleStyleChange={(value) => onHandleInputChange("padding", value)}
         />
       )}
+      {element?.style?.margin && (
+        <InputStyleField
+          label={"Margin"}
+          value={element?.style?.margin}
+          onHandleStyleChange={(value) => onHandleInputChange("margin", value)}
+        />
+      )}
       {element?.style?.borderRadius && (
         <SliderField
           label={"Border Radius"}
@@ -201,6 +228,18 @@ function Settings() {
           }
         />
       )} */}
+
+      <div>
+        <h2 className="font-bold mb-2">Outer Style</h2>
+      {element?.outerStyle?.backgroundColor &&
+      <ColorPickerField
+      label="Background Color"
+      value={element?.style?.backgroundColor}
+      onHandleStyleChange={(value) =>
+        onHandleOuterStyleChange("backgroundColor", value)
+      }
+    />}
+    </div>
     </div>
   );
 }
