@@ -6,7 +6,7 @@ import { Button } from '../ui/button'
 import { Code, Monitor, Smartphone } from 'lucide-react'
 import { useScreenSize } from '@/app/provider'
 
-function EditorHeader() {
+function EditorHeader({viewHTMLCode}) {
   const { screenSize, setScreenSize } = useScreenSize();
   
   return (
@@ -41,7 +41,9 @@ function EditorHeader() {
       <div className='flex gap-3'>
         <Button 
           variant='ghost' 
-          className='hover:text-white hover:bg-primary'
+          // className='hover:text-white hover:bg-primary'
+          className="hover:text-primary"
+          onClick={()=>viewHTMLCode(true)}
         >
           <Code className="mr-2" />
         </Button>
