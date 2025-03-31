@@ -238,7 +238,18 @@ function Settings() {
       onHandleStyleChange={(value) =>
         onHandleOuterStyleChange("backgroundColor", value)
       }
-    />}
+    />
+    }
+    {element?.outerStyle?.justifyContent &&
+      <ToogleGroupField
+      label="Align"
+      value={element?.outerStyle?.justifyContent}
+      options={TextAlignOptions}
+      onHandleStyleChange={(value) =>
+        onHandleOuterStyleChange("justifyContent", value)
+      }
+      />
+    }
     </div>
     </div>
   );
