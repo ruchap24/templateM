@@ -5,7 +5,7 @@ import React, {useEffect, useRef, useState } from 'react'
 import ColumnLayout from '../LayoutElements/ColumnLayout';
 import ViewHtmlDialog from './ViewHtmlDialog';
 
-function Canvas(viewHTMLCode) {
+function Canvas(viewHTMLCode, closeDialog) {
   const htmlRef=useRef();
   const { screenSize, setScreenSize }= useScreenSize();
   const {dragElementLayout, setDragElementLayout}=useDragElementLayout();
@@ -59,7 +59,7 @@ function Canvas(viewHTMLCode) {
         )):
         <h2 className='p-4 text-center bg-gray-100 border border-dashed'>Add Layout Here</h2>}
       </div>
-      <ViewHtmlDialog openDialog={viewHTMLCode} htmlCode={htmlCode}/>
+      <ViewHtmlDialog openDialog={viewHTMLCode} htmlCode={htmlCode} closeDialog={closeDialog}/>
     </div>
   )
 }
