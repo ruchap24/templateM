@@ -10,6 +10,7 @@ import ToogleGroupField from "./Settings/ToogleGroupField";
 import { AArrowUp, CaseLower, CaseUpper } from "lucide-react";
 import DropdownField from "./Settings/DropdownField";
 import ImagePreview from "./Element/ImagePreview";
+import { AlignLeft, AArrowUp, CaseLower, CaseUpper } from "lucide-react";
 
 const TextAlignOptions = [
   {
