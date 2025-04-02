@@ -1,7 +1,7 @@
 "use client"
 import { useDragElementLayout, useEmailTemplate, useScreenSize } from '@/app/provider';
 import layout from '@/Data/Layout';
-import React, {useEffect, useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react';
 import ColumnLayout from '../LayoutElements/ColumnLayout';
 import ViewHtmlDialog from './ViewHtmlDialog';
 
@@ -50,7 +50,7 @@ function Canvas(viewHTMLCode, closeDialog) {
       ${dragOver && 'bg-purple-100 p-4'}`}
       onDragOver={onDragOver}
       onDrop={()=>onDropHandle()}
-      ref={htmlref}
+      ref={htmlRef}
       >
         {emailTemplate?.length>0? emailTemplate?.map((layout,index)=>(
           <div key={index}>
