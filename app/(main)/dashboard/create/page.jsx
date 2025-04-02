@@ -11,7 +11,7 @@ function CreateNew() {
           Effortlessly design and customize professional Ai-power email
           templates with ease
         </p>
-        <Tabs defaultValue="account" className="w-[400px]">
+        <Tabs defaultValue="account" className="w-[500px] mt-10">
           <TabsList>
             <TabsTrigger value="account">Account</TabsTrigger>
             <TabsTrigger value="password">Password</TabsTrigger>
