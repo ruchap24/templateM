@@ -7,119 +7,93 @@ import InputStyleField from "./Settings/InputStyleField";
 import SliderField from "./Settings/SliderField";
 import TextAreaField from "./Settings/TextAreaField";
 import ToogleGroupField from "./Settings/ToogleGroupField";
-import { AArrowUp, CaseLower, CaseUpper } from "lucide-react";
 import DropdownField from "./Settings/DropdownField";
 import ImagePreview from "./Element/ImagePreview";
 import { AlignLeft, AArrowUp, CaseLower, CaseUpper } from "lucide-react";
 
 const TextAlignOptions = [
-  {
-    value: "left",
-    icon: AlignLeft,
-  },
-  {
-    value: "center",
-    icon: AlignLeft,
-  },
-  {
-    value: "right",
-    icon: AlignLeft,
-  },
+  { value: "left", icon: AlignLeft },
+  { value: "center", icon: AlignLeft },
+  { value: "right", icon: AlignLeft },
 ];
 
 const TextTransformOptions = [
-  {
-    value: "uppercase",
-    icon: CaseUpper,
-  },
-  {
-    value: "lowercase",
-    icon: CaseLower,
-  },
-  {
-    value: "capitalize",
-    icon: AArrowUp,
-  },
+  { value: "uppercase", icon: CaseUpper },
+  { value: "lowercase", icon: CaseLower },
+  { value: "capitalize", icon: AArrowUp },
 ];
 
 function Settings() {
   const { selectedElement, setSelectedElement } = useSelectedElement();
   const [element, setElement] = useState();
+
   useEffect(() => {
-    console.log(selectedElement?.layout?.[selectedElement?.index]);
-    setElement(selectedElement?.layout?.[selectedElement?.index]);
+    // When the selectedElement changes, update the local element state if available.
+    if (selectedElement?.layout && typeof selectedElement.index === "number") {
+      setElement(selectedElement.layout[selectedElement.index]);
+    }
   }, [selectedElement]);
 
   const onHandleInputChange = (fieldName, value) => {
-    console.log(fieldName, "value" + value);
-    const updatedData = { ...selectedElement };
-
-    updatedData.layout[selectedElement.index][fieldName] = value;
-
-    setSelectedElement(updatedData);
+    // Create a new copy of the layout array
+    const updatedLayout = [...selectedElement.layout];
+    updatedLayout[selectedElement.index] = {
+      ...updatedLayout[selectedElement.index],
+      [fieldName]: value,
+    };
+    setSelectedElement({ ...selectedElement, layout: updatedLayout });
   };
 
   const onHandleStyleChange = (fieldName, fieldValue) => {
-
-
-    let updateElement = {
-      ...selectedElement,
-      layout: {
-        ...selectedElement?.layout,
-        [selectedElement?.index]: {
-          ...selectedElement?.layout[selectedElement?.index],
-          style: {
-            ...selectedElement?.layout[selectedElement?.index]?.style,
-            [fieldName]: [fieldValue],
-          },
-        },
+    // Remove array wrapping around fieldValue so that the value is saved as string/number
+    const updatedLayout = [...selectedElement.layout];
+    updatedLayout[selectedElement.index] = {
+      ...updatedLayout[selectedElement.index],
+      style: {
+        ...updatedLayout[selectedElement.index].style,
+        [fieldName]: fieldValue,
       },
     };
-
-    setSelectedElement(updateElement);
+    setSelectedElement({ ...selectedElement, layout: updatedLayout });
   };
 
   const onHandleOuterStyleChange = (fieldName, fieldValue) => {
-
-
-    let updateElement = {
-      ...selectedElement,
-      layout: {
-        ...selectedElement?.layout,
-        [selectedElement?.index]: {
-          ...selectedElement?.layout[selectedElement?.index],
-          outerStyle: {
-            ...selectedElement?.layout[selectedElement?.index]?.outerStyle,
-            [fieldName]: [fieldValue],
-          },
-        },
+    const updatedLayout = [...selectedElement.layout];
+    updatedLayout[selectedElement.index] = {
+      ...updatedLayout[selectedElement.index],
+      outerStyle: {
+        ...updatedLayout[selectedElement.index].outerStyle,
+        [fieldName]: fieldValue,
       },
     };
-
-    setSelectedElement(updateElement);
+    setSelectedElement({ ...selectedElement, layout: updatedLayout });
   };
 
   return (
     <div className="p-5 flex flex-col gap-4">
       <h2 className="font-bold text-xl">Settings</h2>
-      {element?.imageUrl && ( //remove this paranthesis()
+      {element?.imageUrl && (
         <ImagePreview
-          label={"Image Preview"}
-          value={element?.imageUrl}
-          onHandleInputChange={(value) => onHandleInputChange("imageUrl", value)}
+          label="Image Preview"
+          value={element.imageUrl}
+          onHandleInputChange={(value) =>
+            onHandleInputChange("imageUrl", value)
+          }
         />
       )}
-      {element?.content && ( //remove this paranthesis()
+      {element?.content && (
         <InputField
-          label={"Content"}
-          value={element?.content}
-          onHandleInputChange={(value) => onHandleInputChange("content", value)}
+          label="Content"
+          value={element.content}
+          onHandleInputChange={(value) =>
+            onHandleInputChange("content", value)
+          }
         />
       )}
       {element?.textarea && (
         <TextAreaField
-          label={"Text Area"}
-          value={element?.textarea}
+          label="Text Area"
+          value={element.textarea}
           onHandleInputChange={(value) =>
             onHandleInputChange("textarea", value)
           }
@@ -127,23 +101,25 @@ function Settings() {
       )}
       {element?.url && (
         <InputField
-          label={"url"}
-          value={element?.url}
+          label="URL"
+          value={element.url}
           onHandleInputChange={(value) => onHandleInputChange("url", value)}
         />
       )}
       {element?.style?.width && (
         <SliderField
-          label={"Width"}
-          value={element?.style?.width}
+          label="Width"
+          value={element.style.width}
           type="%"
-          onHandleStyleChange={(value) => onHandleInputChange("width", value)}
+          onHandleStyleChange={(value) =>
+            onHandleInputChange("width", value)
+          }
         />
       )}
-      {element?.style.textAlign && (
+      {element?.style?.textAlign && (
         <ToogleGroupField
-          label={"Text Align"}
-          value={element?.style.textAlign}
+          label="Text Align"
+          value={element.style.textAlign}
           options={TextAlignOptions}
           onHandleStyleChange={(value) =>
             onHandleStyleChange("textAlign", value)
@@ -153,7 +129,7 @@ function Settings() {
       {element?.style?.backgroundColor && (
         <ColorPickerField
           label="Background Color"
-          value={element?.style?.backgroundColor}
+          value={element.style.backgroundColor}
           onHandleStyleChange={(value) =>
             onHandleStyleChange("backgroundColor", value)
           }
@@ -162,23 +138,25 @@ function Settings() {
       {element?.style?.color && (
         <ColorPickerField
           label="Text Color"
-          value={element?.style?.color}
-          onHandleStyleChange={(value) => onHandleStyleChange("color", value)}
+          value={element.style.color}
+          onHandleStyleChange={(value) =>
+            onHandleStyleChange("color", value)
+          }
         />
       )}
       {element?.style?.fontSize && (
         <InputStyleField
-          label={"Font size"}
-          value={element?.style?.fontSize}
+          label="Font Size"
+          value={element.style.fontSize}
           onHandleStyleChange={(value) =>
             onHandleInputChange("fontSize", value)
           }
         />
       )}
-      {element?.style.textTransform && (
+      {element?.style?.textTransform && (
         <ToogleGroupField
-          label={"Text Transform"}
-          value={element?.style.textTransform}
+          label="Text Transform"
+          value={element.style.textTransform}
           options={TextTransformOptions}
           onHandleStyleChange={(value) =>
             onHandleStyleChange("textTransform", value)
@@ -187,22 +165,26 @@ function Settings() {
       )}
       {element?.style?.padding && (
         <InputStyleField
-          label={"Padding"}
-          value={element?.style?.padding}
-          onHandleStyleChange={(value) => onHandleInputChange("padding", value)}
+          label="Padding"
+          value={element.style.padding}
+          onHandleStyleChange={(value) =>
+            onHandleInputChange("padding", value)
+          }
         />
       )}
       {element?.style?.margin && (
         <InputStyleField
-          label={"Margin"}
-          value={element?.style?.margin}
-          onHandleStyleChange={(value) => onHandleInputChange("margin", value)}
+          label="Margin"
+          value={element.style.margin}
+          onHandleStyleChange={(value) =>
+            onHandleInputChange("margin", value)
+          }
         />
       )}
       {element?.style?.borderRadius && (
         <SliderField
-          label={"Border Radius"}
-          value={element?.style?.borderRadius}
+          label="Border Radius"
+          value={element.style.borderRadius}
           onHandleStyleChange={(value) =>
             onHandleInputChange("borderRadius", value)
           }
@@ -210,48 +192,36 @@ function Settings() {
       )}
       {element?.style?.fontWeight && (
         <DropdownField
-          label={"Font Weight"}
-          value={element?.style?.fontWeight}
-          options={['normal','bold']}
+          label="Font Weight"
+          value={element.style.fontWeight}
+          options={["normal", "bold"]}
           onHandleStyleChange={(value) =>
             onHandleInputChange("fontWeight", value)
           }
         />
       )}
-
-      {/* {element?.style.textAlign && (
-        <ToogleGroupField
-          label={"Text Align"}
-          value={element?.style.textAlign}
-          options={TextAlignOptions}
-          onHandleStyleChange={(value) =>
-            onHandleStyleChange("textAlign", value)
-          }
-        />
-      )} */}
-
       <div>
         <h2 className="font-bold mb-2">Outer Style</h2>
-      {element?.outerStyle?.backgroundColor &&
-      <ColorPickerField
-      label="Background Color"
-      value={element?.style?.backgroundColor}
-      onHandleStyleChange={(value) =>
-        onHandleOuterStyleChange("backgroundColor", value)
-      }
-    />
-    }
-    {element?.outerStyle?.justifyContent &&
-      <ToogleGroupField
-      label="Align"
-      value={element?.outerStyle?.justifyContent}
-      options={TextAlignOptions}
-      onHandleStyleChange={(value) =>
-        onHandleOuterStyleChange("justifyContent", value)
-      }
-      />
-    }
-    </div>
+        {element?.outerStyle?.backgroundColor && (
+          <ColorPickerField
+            label="Outer Background Color"
+            value={element.outerStyle.backgroundColor}
+            onHandleStyleChange={(value) =>
+              onHandleOuterStyleChange("backgroundColor", value)
+            }
+          />
+        )}
+        {element?.outerStyle?.justifyContent && (
+          <ToogleGroupField
+            label="Align"
+            value={element.outerStyle.justifyContent}
+            options={TextAlignOptions}
+            onHandleStyleChange={(value) =>
+              onHandleOuterStyleChange("justifyContent", value)
+            }
+          />
+        )}
+      </div>
     </div>
   );
 }
