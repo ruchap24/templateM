@@ -5,7 +5,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import ColumnLayout from '../LayoutElements/ColumnLayout';
 import ViewHtmlDialog from './ViewHtmlDialog';
 
-function Canvas(viewHTMLCode, closeDialog) {
+function Canvas({viewHTMLCode, closeDialog}) {
   const htmlRef=useRef();
   const { screenSize, setScreenSize }= useScreenSize();
   const {dragElementLayout, setDragElementLayout}=useDragElementLayout();
