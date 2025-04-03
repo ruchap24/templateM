@@ -7,19 +7,27 @@ import EditorHeader from '@/components/custom/EditorHeader'
 
 
 function Editor() {
-  const [viewHTMLCode,setViewHtmlCode]=useState();
+  const [viewHTMLCode, setViewHtmlCode] = useState(false);
+  
+  const handleClose = () => {
+    setViewHtmlCode(false);
+  };
+
   return (
     <div>
-        <EditorHeader viewHTMLCode={(v)=>setViewHtmlCode(v)}/>
-        <div className='grid grid-cols-5'>
-            <ElementsSideBar/>
-            <div className='col-span-3 bg-gray-100'>
-                <Canvas viewHTMLCode={viewHTMLCode} closeDialog={()=>setViewHtmlCode(false)}/>
-            </div>
-            <Settings/>
+      <EditorHeader viewHTMLCode={(v) => setViewHtmlCode(v)} />
+      <div className='grid grid-cols-5'>
+        <ElementsSideBar />
+        <div className='col-span-3 bg-gray-100'>
+          <Canvas 
+            viewHTMLCode={viewHTMLCode} 
+            closeDialog={handleClose}
+          />
         </div>
+        <Settings />
+      </div>
     </div>
-  )
+  );
 }
 
 export default Editor
