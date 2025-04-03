@@ -1,25 +1,27 @@
 import React from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Sparkles } from 'lucide-react';
+import AIinputBox from "@/components/custom/AIinputBox";
 
 function CreateNew() {
   return (
-    <div className="px-10 md:px-20 lg:px-44 xl:px-56 mt-20">
-      <div>
+    <div className="px-10 md:px-20 lg:px-64 xl:px-72 mt-20">
+      <div className="flex flex-col items-center justify-center text-center">
         <h2 className="font-bold text-3xl">CREATE NEW EMAIL TEMPLATE</h2>
         <p className="text-lg text-gray-400">
           {" "}
           Effortlessly design and customize professional Ai-power email
           templates with ease
         </p>
-        <Tabs defaultValue="account" className="w-[500px] mt-10">
+        <Tabs defaultValue="AI" className="w-[500px] mt-10">
           <TabsList>
-            <TabsTrigger value="account">Account</TabsTrigger>
-            <TabsTrigger value="password">Password</TabsTrigger>
+            <TabsTrigger value="AI">Create with AI <Sparkles className="h-5 w-5 ml-2" /></TabsTrigger>
+            <TabsTrigger value="SCRATCH">Start from Scratch</TabsTrigger>
           </TabsList>
-          <TabsContent value="account">
-            Make changes to your account here.
+          <TabsContent value="AI">
+            <AIinputBox />
           </TabsContent>
-          <TabsContent value="password">Change your password here.</TabsContent>
+          <TabsContent value="SCRATCH">Change your password here.</TabsContent>
         </Tabs>
       </div>
     </div>
