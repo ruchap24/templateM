@@ -44,18 +44,18 @@ const CheckCode = () => {
 
   return (
     <div className="container w-full mx-auto p-8 min-h-screen dark:bg-gray-900">
-      <h1 className="text-3xl font-bold text-center mb-8 text-gray-900 dark:text-gray-100">
+      <h1 className="text-4xl font-bold text-center mb-8 text-gray-900 dark:text-gray-100">
         Check Code
       </h1>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
         <div className="flex flex-col group">
-          <label className="text-l font-bold mb-4 text-center text-gray-700 dark:text-gray-300">
+          <label className="text-xl font-bold mb-4 text-center text-gray-700 dark:text-gray-300">
             Original Code
           </label>
           <div className="relative">
             <textarea
               className="w-full border border-gray-300 dark:border-gray-700 rounded-lg p-4 min-h-[20rem] 
-                       bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 
+                       bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-300 
                        shadow-sm focus:ring-2 focus:ring-purple-500 focus:border-purple-500 
                        resize-none transition-colors duration-200"
               value={originalText}
@@ -66,13 +66,13 @@ const CheckCode = () => {
         </div>
 
         <div className="flex flex-col group">
-          <label className="text-l font-bold mb-4 text-center text-gray-700 dark:text-gray-300">
+          <label className="text-xl font-bold mb-4 text-center text-gray-700 dark:text-gray-300">
             Modified Code
           </label>
           <div className="relative">
             <textarea
               className="w-full border border-gray-300 dark:border-gray-700 rounded-lg p-4 min-h-[20rem] 
-                       bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 
+                       bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-300 
                        shadow-sm focus:ring-2 focus:ring-purple-500 focus:border-purple-500 
                        resize-none transition-colors duration-200"
               value={modifiedText}
