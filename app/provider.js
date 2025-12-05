@@ -23,7 +23,6 @@ function Provider({children}) {
         const emailTemplateStorage=JSON.parse(localStorage.getItem('emailTemplate'));
         setEmailTemplate(emailTemplateStorage??[]);
         if(!storage?.email || !storage){
-          //redirect to home screen
         }
         else{
           setUserDetail(storage);

@@ -70,7 +70,6 @@ function ColumnLayout({ layout }) {
     if(index>0){
         setEmailTemplate((prevItems)=>{
             const updatedItems=[...prevItems];
-            //swap the current item with the one above it
             [updatedItems[index], updatedItems[index-1]]=[
                 updatedItems[index-1],
                 updatedItems[index],
@@ -86,7 +85,6 @@ function ColumnLayout({ layout }) {
     if(index>0){
         setEmailTemplate((prevItems)=>{
             const updatedItems=[...prevItems];
-            //swap the current item with the one above it
             [updatedItems[index], updatedItems[index+1]]=[
                 updatedItems[index+1],
                 updatedItems[index],
