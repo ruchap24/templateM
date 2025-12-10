@@ -1,16 +1,26 @@
 "use client"
-import React from 'react'
+import React, { useEffect } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'  
 import { Button } from '../ui/button'
 import { Code, Monitor, Smartphone } from 'lucide-react'
-import { useScreenSize } from '@/app/provider'
+import { useEmailTemplate, useScreenSize } from '@/app/provider'
 import CheckCode from './CheckCode'
 
 function EditorHeader({viewHTMLCode}) {
   const { screenSize, setScreenSize } = useScreenSize();
   const router = useRouter();
+  const updateEmailTemplate= useMutation(api.emailTemplate.updateTemplateDesign);
+  const {emailTemplate, setEmailTemplate}=useEmailTemplate();
+
+  const onSaveTemplate=async()=>{
+    await updateEmailTemplate({
+      tid:templateId,
+      design:emailTemplate
+    });
+    toast('Email Template Saved Successfully!')
+  }
   
   return (
     <div className='p-4 shadow-sm flex justify-between items-center dark:bg-gray-900 dark:border-b dark:border-gray-800'>
@@ -66,6 +76,7 @@ function EditorHeader({viewHTMLCode}) {
         <Button 
           variant='default'
           className="dark:bg-purple-800 dark:hover:bg-purple-700"
+          onClick={onSaveTemplate}
         >
           Save Template
         </Button>

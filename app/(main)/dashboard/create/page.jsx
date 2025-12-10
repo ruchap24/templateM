@@ -1,7 +1,7 @@
 import React from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Sparkles } from 'lucide-react';
-import AIinputBox from "@/components/custom/AIinputBox";
+import AIinputBox from "@/components/custom/AIInputBox";
 
 function CreateNew() {
   return (
