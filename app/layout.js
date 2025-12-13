@@ -1,7 +1,7 @@
 
 import { Geist, Geist_Mono } from "next/font/google";
 import Provider from "./provider";
-import Toaster from '@/components/ui/sonner';
+import { Toaster } from 'sonner';
 
 import "./globals.css";
 

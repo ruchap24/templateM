@@ -1,9 +1,8 @@
 "use client"
-import React, { useContext, useEffect } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { ConvexProvider, ConvexReactClient } from "convex/react";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 import { UserDetailContext } from '@/context/UserDetailContext';
-import { useState } from 'react';
 import { ScreenSizeContext } from '@/context/ScreenSizeContext';
 import { DragDropLayoutElement } from '@/context/DragDropLayoutElement';
 import { EmailTemplateContext } from '@/context/EmailTemplateContext';
@@ -11,16 +10,16 @@ import { SelectedElementContext } from '@/context/SelectedElementContext';
 
 function Provider({children}) {
     const convex = new ConvexReactClient(process.env.NEXT_PUBLIC_CONVEX_URL);
-    const [userDetail, setUserDetail] = useState(null);
+    const [userDetail, setUserDetail] = useState();
     const [screenSize,setScreenSize]=useState('desktop');
-    const [dragElementLayout, setDragElementLayout] = useState(null);
+    const [dragElementLayout, setDragElementLayout] = useState();
     const [emailTemplate, setEmailTemplate]=useState([]);
     const [selectedElement, setSelectedElement]=useState(null);
 
     useEffect(()=>{
       if(typeof window!=='undefined'){
-        const storage=JSON.parse(localStorage.getItem('userDetail'));
-        const emailTemplateStorage=JSON.parse(localStorage.getItem('emailTemplate')??{});
+        const storage=JSON.parse(localStorage.getItem('userDetail')??"null");
+        const emailTemplateStorage=JSON.parse(localStorage.getItem('emailTemplate')??"[]");
         setEmailTemplate(emailTemplateStorage??[]);
         if(!storage?.email || !storage){
         }
@@ -71,6 +70,10 @@ function Provider({children}) {
 }
 
 export default Provider;
+
+export const useUserDetail=()=>{
+  return useContext(UserDetailContext)
+}
 
 export const UserDetail=()=>{
   return useContext(UserDetailContext)

@@ -1,45 +1,17 @@
-import { GoogleGenAI } from '@google/genai';
+import { GoogleGenerativeAI } from '@google/generative-ai';
 
-async function main() {
-  const ai = new GoogleGenAI({
-    apiKey: process.env.NEXT_PUBLIC_GEMINI_API_KEY
-  });
+const genAI = new GoogleGenerativeAI(process.env.NEXT_PUBLIC_GEMINI_API_KEY);
 
-  const tools = [
-    {
-      googleSearch: {}
-    }
-  ];
+const config = {
+  temperature: 1,
+  topP: 0.95,
+  topK: 40,
+  maxOutputTokens: 8192,
+};
 
-  const config = {
-    thinkingConfig: {
-      thinkingLevel: 'HIGH'
-    },
-    tools
-  };
+export const GenerateEmailTemplateAIModel = genAI.getGenerativeModel({
+  model: 'gemini-2.0-flash',
+  // systemInstruction: "You are an email template generator. Return valid JSON only.",
+  // generationConfig: config
+});
 
-  const model = 'gemini-3-pro-preview';
-
-  const contents = [
-    {
-      role: 'user',
-      parts: [
-        {
-          text: 'INSERT_INPUT_HERE'
-        }
-      ]
-    }
-  ];
-
-  const response = await ai.models.generateContentStream({
-    model,
-    config,
-    contents
-  });
-
-  for await (const chunk of response) {
-    console.log(chunk.text);
-  }
-}
-
-main();

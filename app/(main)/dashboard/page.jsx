@@ -1,12 +1,12 @@
 "use client"
-import { UserDetail } from '@/app/provider'
+import { useUserDetail } from '@/app/provider'
 import EmailTemplateList from '@/components/custom/EmailTemplateList'
 import { Button } from '@/components/ui/button'
 import React from 'react'
 import Link from 'next/link'
 
 function Dashboard() {
-  const { userDetail, setUserDetail } = UserDetail();
+  const { userDetail, setUserDetail } = useUserDetail();
 
   return (
     <div>

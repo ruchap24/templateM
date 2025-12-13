@@ -9,13 +9,14 @@ import { api } from '@/convex/_generated/api';
 import { v4 as uuidv4 } from 'uuid';
 import { useUserDetail } from '@/app/provider';
 import { useRouter } from 'next/navigation';
+import { Loader2 } from 'lucide-react';
 
 function AIInputBox() {
   const [userInput, setUserInput] = useState('')
   const [loading, setLoading] = useState(false);
   const SaveTemplate=useMutation(api.emailTemplate.SaveTemplate);
   const {userDetail, setUserDetail}=useUserDetail();
-  const router=useRouter
+  const router=useRouter();
 
   const OnGenerate=async()=>{
     const PROMPT=Prompt.EMAIL_PROMPT+"\n-"+userInput;
@@ -39,8 +40,12 @@ function AIInputBox() {
       setLoading(false);
     }
     catch(e){
-      console.log(e);
+      console.error("Error generating template:", e);
       setLoading(false);
+      // Handle error response from API
+      if (e?.response?.data?.error) {
+        console.error("API Error:", e.response.data.error);
+      }
     } 
   }
   return (
@@ -49,7 +54,15 @@ function AIInputBox() {
             Provide details about your email template, such as the purpose, target audience, and any specific elements you want to include. The more details you provide, the better the AI can assist you in creating a tailored email template.
         </p>  
             <Textarea className="w-full h-40 mt-5 p-3 border border-gray-300 rounded-lg" placeholder="Enter your details here..." onChange={(e)=>setUserInput(e.target.value)}></Textarea>
-        <Button className='w-full mt-7 bg-blue-500 text-white hover:bg-blue-600' disabled={(userInput?.length==0 || loading)} onClick={OnGenerate}>{loading?<span className='flex gap-2'><Loader2 className='animate-spin'/> Please wait...</span>:'Generate'} Generate Template</Button>
+        <Button className='w-full mt-7 bg-blue-500 text-white hover:bg-blue-600' disabled={(userInput?.length==0 || loading)} onClick={OnGenerate}>
+          {loading ? (
+            <span className='flex gap-2 items-center'>
+              <Loader2 className='animate-spin'/> Please wait...
+            </span>
+          ) : (
+            'Generate Template'
+          )}
+        </Button>
         {/* <p className='mt-5 text-lg text-gray-400'>
             Note: The AI-generated template may require further customization to meet your specific needs.
         </p> */}

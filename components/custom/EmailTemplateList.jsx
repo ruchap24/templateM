@@ -3,6 +3,9 @@ import { useState } from 'react';
 import Image from 'next/image'
 import { Button } from '../ui/button';
 import Link from 'next/link';
+import { useConvex } from 'convex/react';
+import { useUserDetail } from '@/app/provider';
+import { api } from '@/convex/_generated/api';
 
 function EmailTemplateList() {
     const [emailList, setEmailList] = useState([]);

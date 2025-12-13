@@ -7,7 +7,10 @@ import{
     SelectValue,
 } from "@/components/ui/select"
 
-function DropdownField(label,value,options,onHandleStyleChange) {
+function DropdownField({label, value, options, onHandleStyleChange}) {
+  if (!options || !Array.isArray(options)) {
+    return null;
+  }
   return (
     <div>
         <label>{label}</label> 
@@ -16,9 +19,9 @@ function DropdownField(label,value,options,onHandleStyleChange) {
                 <SelectValue placeholder={value}/>
             </SelectTrigger>
             <SelectContent>
-                {options?.map((option,index)=>{
+                {options.map((option,index)=>(
                     <SelectItem value={option} key={index}>{option}</SelectItem>
-                })}
+                ))}
             </SelectContent>
         </Select>
     </div>

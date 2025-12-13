@@ -2,24 +2,37 @@
 import React, { useEffect } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
-import { useRouter } from 'next/navigation'  
+import { useRouter, useParams } from 'next/navigation'  
 import { Button } from '../ui/button'
 import { Code, Monitor, Smartphone } from 'lucide-react'
 import { useEmailTemplate, useScreenSize } from '@/app/provider'
 import CheckCode from './CheckCode'
+import { useMutation } from 'convex/react';
+import { api } from '@/convex/_generated/api';
+import { toast } from 'sonner';
 
 function EditorHeader({viewHTMLCode}) {
   const { screenSize, setScreenSize } = useScreenSize();
   const router = useRouter();
-  const updateEmailTemplate= useMutation(api.emailTemplate.updateTemplateDesign);
-  const {emailTemplate, setEmailTemplate}=useEmailTemplate();
+  const { templateId } = useParams();
+  const updateEmailTemplate = useMutation(api.emailTemplate.updateTemplateDesign);
+  const { emailTemplate, setEmailTemplate } = useEmailTemplate();
 
-  const onSaveTemplate=async()=>{
-    await updateEmailTemplate({
-      tid:templateId,
-      design:emailTemplate
-    });
-    toast('Email Template Saved Successfully!')
+  const onSaveTemplate = async() => {
+    if (!templateId) {
+      toast.error('Template ID is missing');
+      return;
+    }
+    try {
+      await updateEmailTemplate({
+        tid: templateId,
+        design: emailTemplate
+      });
+      toast('Email Template Saved Successfully!')
+    } catch(error) {
+      console.error("Error saving template:", error);
+      toast('Failed to save template')
+    }
   }
   
   return (

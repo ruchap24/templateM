@@ -7,14 +7,16 @@ import ElementsSideBar from '@/components/custom/ElementsSideBar'
 import EditorHeader from '@/components/custom/EditorHeader'
 import { api } from '@/convex/_generated/api'
 import { useEmailTemplate } from '@/app/provider'
-
+import { useConvex } from 'convex/react'
+import { useUserDetail } from '@/app/provider'
+import { Loader2 } from 'lucide-react';
 
 function Editor() {
   const [viewHTMLCode, setViewHtmlCode] = useState();
   const {templateId}=useParams();
   const {userDetail, setUserDetail}= useUserDetail();
   const { emailTemplate, setEmailTemplate } = useEmailTemplate();
-  const { loading, setLoadin }= useState(false);
+  const [ loading, setLoading ]= useState(false);
   const convex= useConvex();
 
   useEffect(()=>{
@@ -32,7 +34,7 @@ function Editor() {
     });
     console.log(result);
     setEmailTemplate(result?.design)
-    setLoadin(false);
+    setLoading(false);
   }
   
 

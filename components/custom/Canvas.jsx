@@ -22,7 +22,7 @@ function Canvas({viewHTMLCode, closeDialog}) {
   const onDropHandle=()=>{
     setDragOver(false);
     if(dragElementLayout?.dragLayout){
-      setEmailTemplate(prev=>[...prev,dragElementLayout?.dragLayout])
+      setEmailTemplate(prev=>[...(prev || []),dragElementLayout?.dragLayout])
     }
   }
 
