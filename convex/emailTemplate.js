@@ -43,21 +43,32 @@ export const GetTemplateDesign=query({
     }
 })
 
-export const UpdateTemplateDesign=mutation({
+export const updateTemplateDesign=mutation({
     args:{
         tid:v.string(),
         design:v.any(),
     },
     handler:async(ctx, args)=>{
-        const result=await ctx.db.query('emailTemplates').filter(q=>q.eqq(q.field('tid'),args.tid))
-        .collect();
+        try {
+            const result=await ctx.db.query('emailTemplates').filter(q=>q.eq(q.field('tid'),args.tid))
+            .collect();
 
-        const docId=result[0]._id;
-        console.log(docId);
+            if(result.length === 0) {
+                throw new Error('Template not found');
+            }
 
-        await ctx.db.patch(docId,{
-            design:args.design
-        });
+            const docId=result[0]._id;
+            console.log(docId);
+
+            await ctx.db.patch(docId,{
+                design:args.design
+            });
+            
+            return { success: true };
+        } catch(e) {
+            console.error("Error updating template:", e);
+            throw e;
+        }
     }
 })
 

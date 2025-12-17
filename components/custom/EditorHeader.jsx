@@ -18,15 +18,48 @@ function EditorHeader({viewHTMLCode}) {
   const updateEmailTemplate = useMutation(api.emailTemplate.updateTemplateDesign);
   const { emailTemplate, setEmailTemplate } = useEmailTemplate();
 
+  const sanitizeData = (data) => {
+    if (data === null || data === undefined) {
+      return data;
+    }
+    
+    if (Array.isArray(data)) {
+      return data.map(item => sanitizeData(item));
+    }
+    
+    if (typeof data === 'object') {
+      if (data.$$typeof || typeof data === 'function') {
+        return null;
+      }
+      
+      const sanitized = {};
+      for (const key in data) {
+        if (key.startsWith('$')) {
+          continue;
+        }
+        
+        const value = sanitizeData(data[key]);
+        if (value !== null && value !== undefined) {
+          sanitized[key] = value;
+        }
+      }
+      return sanitized;
+    }
+    
+    return data;
+  };
+
   const onSaveTemplate = async() => {
     if (!templateId) {
       toast.error('Template ID is missing');
       return;
     }
     try {
+      const sanitizedDesign = sanitizeData(emailTemplate);
+      
       await updateEmailTemplate({
         tid: templateId,
-        design: emailTemplate
+        design: sanitizedDesign
       });
       toast('Email Template Saved Successfully!')
     } catch(error) {

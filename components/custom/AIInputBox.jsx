@@ -29,6 +29,18 @@ function AIInputBox() {
         // tId:0
       });
       console.log(result.data);
+      if (result.data?.error) {
+        const errorMessage = result.data.details || result.data.error || 'Failed to generate template';
+        alert(`Error: ${errorMessage}`);
+        setLoading(false);
+        return;
+      }
+      if (!result.data || !Array.isArray(result.data)) {
+        alert('Error: Invalid response from AI. Please try again.');
+        setLoading(false);
+        return;
+      }
+      
       const resp =await SaveTemplate({  
         tid:tid,
         design:result.data,
@@ -42,9 +54,18 @@ function AIInputBox() {
     catch(e){
       console.error("Error generating template:", e);
       setLoading(false);
-      // Handle error response from API
       if (e?.response?.data?.error) {
-        console.error("API Error:", e.response.data.error);
+        const errorData = e.response.data;
+        console.error("API Error:", errorData.error);
+        if (errorData.details) {
+          alert(`Error: ${errorData.details}`);
+        } else if (errorData.error) {
+          alert(`Error: ${errorData.error}`);
+        }
+      } else if (e?.message) {
+        alert(`Error: ${e.message}`);
+      } else {
+        alert('An error occurred while generating the template. Please try again.');
       }
     } 
   }

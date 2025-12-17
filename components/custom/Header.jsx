@@ -11,7 +11,7 @@ function Header() {
   const { userDetail, setUserDetail } = UserDetail();
   return (
     <div className='flex justify-between items-center p-4 shadow-sm px-10'>
-        <Image src={'/logo.svg'} alt="Logo" width={60} height={60} />
+        <Image src={'/img.png'} alt="Logo" width={140} height={140} />
 
         <div>
           {userDetail?.email ?

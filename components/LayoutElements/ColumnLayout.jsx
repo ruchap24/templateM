@@ -121,8 +121,6 @@ function ColumnLayout({ layout }) {
         {selectedElement?.layout?.id == layout?.id && (
           <div className="absolute -right-10 cursor-pointer bg-gray-100 p-2 rounded-full hover:scale-105 transition-all hover:shadow-md" onClick={()=>dragElementLayout(layout?.id)}>
             <Trash className="h-4 w-4 text-red-500" />
-
-        {/* code for arrow up & arrow down */}
           </div>
         )}
       </div>

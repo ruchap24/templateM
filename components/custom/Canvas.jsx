@@ -22,7 +22,10 @@ function Canvas({viewHTMLCode, closeDialog}) {
   const onDropHandle=()=>{
     setDragOver(false);
     if(dragElementLayout?.dragLayout){
-      setEmailTemplate(prev=>[...(prev || []),dragElementLayout?.dragLayout])
+      setEmailTemplate(prev=>{
+        const prevArray = Array.isArray(prev) ? prev : [];
+        return [...prevArray, dragElementLayout?.dragLayout];
+      })
     }
   }
 

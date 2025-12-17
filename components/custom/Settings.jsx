@@ -28,42 +28,60 @@ function Settings() {
   const [element, setElement] = useState();
 
   useEffect(() => {
-    // When the selectedElement changes, update the local element state if available.
     if (selectedElement?.layout && typeof selectedElement.index === "number") {
-      setElement(selectedElement.layout[selectedElement.index]);
+      const element = selectedElement.layout[selectedElement.index];
+      setElement(element);
     }
   }, [selectedElement]);
 
   const onHandleInputChange = (fieldName, value) => {
-    // Create a new copy of the layout array
-    const updatedLayout = [...selectedElement.layout];
-    updatedLayout[selectedElement.index] = {
-      ...updatedLayout[selectedElement.index],
-      [fieldName]: value,
+    if (!selectedElement?.layout || typeof selectedElement.index !== "number") {
+      return;
+    }
+    
+    const updatedLayout = {
+      ...selectedElement.layout,
+      [selectedElement.index]: {
+        ...selectedElement.layout[selectedElement.index],
+        [fieldName]: value,
+      },
     };
     setSelectedElement({ ...selectedElement, layout: updatedLayout });
   };
 
   const onHandleStyleChange = (fieldName, fieldValue) => {
-    // Remove array wrapping around fieldValue so that the value is saved as string/number
-    const updatedLayout = [...selectedElement.layout];
-    updatedLayout[selectedElement.index] = {
-      ...updatedLayout[selectedElement.index],
-      style: {
-        ...updatedLayout[selectedElement.index].style,
-        [fieldName]: fieldValue,
+    if (!selectedElement?.layout || typeof selectedElement.index !== "number") {
+      return;
+    }
+    
+    const currentElement = selectedElement.layout[selectedElement.index];
+    const updatedLayout = {
+      ...selectedElement.layout,
+      [selectedElement.index]: {
+        ...currentElement,
+        style: {
+          ...currentElement?.style,
+          [fieldName]: fieldValue,
+        },
       },
     };
     setSelectedElement({ ...selectedElement, layout: updatedLayout });
   };
 
   const onHandleOuterStyleChange = (fieldName, fieldValue) => {
-    const updatedLayout = [...selectedElement.layout];
-    updatedLayout[selectedElement.index] = {
-      ...updatedLayout[selectedElement.index],
-      outerStyle: {
-        ...updatedLayout[selectedElement.index].outerStyle,
-        [fieldName]: fieldValue,
+    if (!selectedElement?.layout || typeof selectedElement.index !== "number") {
+      return;
+    }
+    
+    const currentElement = selectedElement.layout[selectedElement.index];
+    const updatedLayout = {
+      ...selectedElement.layout,
+      [selectedElement.index]: {
+        ...currentElement,
+        outerStyle: {
+          ...currentElement?.outerStyle,
+          [fieldName]: fieldValue,
+        },
       },
     };
     setSelectedElement({ ...selectedElement, layout: updatedLayout });
