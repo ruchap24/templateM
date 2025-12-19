@@ -44,13 +44,13 @@ const CheckCode = () => {
 
   return (
     <div className="container w-full mx-auto p-8 min-h-screen dark:bg-gray-900">
-      <h1 className="text-4xl font-bold text-center mb-8 text-gray-900 dark:text-gray-100">
-        Check Code
+      <h1 className="text-4xl font-bold text-center mb-8 text-purple-700 dark:text-purple-400 bg-gradient-to-r from-purple-700 to-purple-900 bg-clip-text text-transparent">
+        Email Template Code Comparison
       </h1>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
         <div className="flex flex-col group">
-          <label className="text-xl font-bold mb-4 text-center text-gray-700 dark:text-gray-300">
-            Original Code
+          <label className="text-xl font-bold mb-4 text-center text-slate-900 dark:text-gray-300">
+            Original Template Code
           </label>
           <div className="relative">
             <textarea
@@ -66,8 +66,8 @@ const CheckCode = () => {
         </div>
 
         <div className="flex flex-col group">
-          <label className="text-xl font-bold mb-4 text-center text-gray-700 dark:text-gray-300">
-            Modified Code
+          <label className="text-xl font-bold mb-4 text-center text-slate-900 dark:text-gray-300">
+            Modified Template Code
           </label>
           <div className="relative">
             <textarea
@@ -85,8 +85,8 @@ const CheckCode = () => {
       
       <button 
         onClick={compareTexts}
-        className="relative bg-purple-600 dark:bg-purple-700 hover:bg-purple-700 
-                 dark:hover:bg-purple-600 text-white px-6 py-3 rounded-lg 
+        className="relative bg-gradient-to-r from-purple-600 to-purple-700 dark:from-purple-700 dark:to-purple-800 hover:from-purple-700 hover:to-purple-800 
+                 dark:hover:from-purple-800 dark:hover:to-purple-900 text-white px-6 py-3 rounded-lg shadow-lg hover:shadow-xl 
                  font-medium mx-auto block transition-colors duration-200"
       >
         Compare

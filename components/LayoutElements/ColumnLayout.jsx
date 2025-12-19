@@ -102,7 +102,7 @@ function ColumnLayout({ layout }) {
           gridTemplateColumns: `repeat(${layout?.numOfCol},1fr)`,
           gap: "0px",
         }}
-        className={`${selectedElement?.layout?.id == layout?.id && "border border-dashed border-blue-500"}`}
+        className={`${selectedElement?.layout?.id == layout?.id && "border border-dashed border-purple-500"}`}
       >
         {Array.from({ length: layout?.numOfCol }).map((_, index) => (
           <div
@@ -110,7 +110,7 @@ function ColumnLayout({ layout }) {
             className={`p-0 flex items-center h-full w-full bg-white cursor-pointer
                 ${!layout?.[index]?.type && "bg-gray-100 border border-dashed"} justify-center'
                 ${index == dragOver?.index && dragOver?.columId && "bg-green-100"}
-                ${selectedElement?.layout?.id == layout?.id && selectedElement?.index == index && "border-blue-500 border-4"}`}
+                ${selectedElement?.layout?.id == layout?.id && selectedElement?.index == index && "border-purple-500 border-4"}`}
             onDragOver={(event) => onDragOverHandler(event, index)}
             onDrop={onDropHandle}
             onClick={() => setSelectedElement({ layout: layout, index: index })}

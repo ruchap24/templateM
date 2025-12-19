@@ -23,7 +23,7 @@ function ButtonComponent({style, content,url,outerStyle}) {
   return (
     <div>
         <a href={url} style={processedOuterStyle}>
-            <button style={processedStyle} className='p-2 bg-blue-500 text-white rounded-md'>{content}</button>
+            <button style={processedStyle} className='p-2 bg-gradient-to-r from-purple-600 to-purple-700 text-white rounded-md hover:from-purple-700 hover:to-purple-800 transition-all shadow-sm hover:shadow-md'>{content}</button>
         </a>
     </div>
   )

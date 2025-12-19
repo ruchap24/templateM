@@ -10,49 +10,50 @@ const PricingPage = () => {
     {
       id: "basic",
       name: "Basic",
-      desc: "Introduced customizable assessment questions, anti-cheating.",
+      desc: "Perfect for individuals and small teams. Create up to 10 email templates with basic customization options.",
       price: "Free",
       buttonText: "Sign Up",
     },
     {
       id: "standard",
       name: "Standard",
-      desc: "More attempts, questions, interview transcription.",
-      price: isYearly ? "$80" : "$100",
+      desc: "Ideal for growing businesses. Unlimited templates, AI-powered design, and advanced customization features.",
+      price: isYearly ? "$29" : "$39",
       buttonText: "Try Now",
       popular: true,
     },
     {
       id: "enterprise",
       name: "Enterprise",
-      desc: "Starter/Business features, more attempts, lower fees, AI integration, interview transcript.",
-      price: isYearly ? "$400" : "$500",
-      buttonText: "Try Now",
+      desc: "Complete solution for large teams. Custom integrations, priority support, team collaboration, and advanced analytics.",
+      price: isYearly ? "$199" : "$249",
+      buttonText: "Contact Sales",
     }
   ];
 
   const features = [
-    "Included All Basic",
+    "Unlimited Email Templates",
+    "AI-Powered Design Tools",
     "24/7 Customer Support",
     "Advanced Security & Encryption",
     "Custom Branding Options",
     "Cloud-Based Access Anywhere",
     "Real-Time Collaboration",
-    "Data Analytics & Insights"
+    "Email Analytics & Insights"
   ];
 
   return (
     <div className="relative min-h-screen bg-slate-50 font-sans overflow-hidden">
       <section className="relative z-10 pt-16 pb-12 px-4 text-center">
-        <span className="inline-block px-4 py-1.5 mb-6 text-sm font-medium bg-white border border-slate-200 rounded-full shadow-sm">
+        <span className="inline-block px-4 py-1.5 mb-6 text-sm font-medium bg-purple-50 border border-purple-200 text-purple-700 rounded-full shadow-sm">
           Pricing Plans
         </span>
         <h1 className="text-4xl md:text-5xl font-extrabold text-slate-900 tracking-tight mb-4">
-          Smart, Scalable Pricing for <span className="text-blue-600">Every Business</span>
+          Smart, Scalable Pricing for <span className="text-purple-700 bg-gradient-to-r from-purple-700 to-purple-900 bg-clip-text text-transparent">Every Business</span>
         </h1>
         <p className="max-w-2xl mx-auto text-slate-600 text-lg leading-relaxed">
-          Whether you're a startup or an enterprise, our flexible plans evolve with your needs, 
-          ensuring you always have the right tools to succeed.
+          Choose the perfect plan for your email template needs. From startups to enterprises, 
+          our flexible pricing scales with your business.
         </p>
         <div className="mt-10 flex items-center justify-center gap-4">
           <div className="bg-slate-200/50 p-1 rounded-full flex items-center">
@@ -67,26 +68,26 @@ const PricingPage = () => {
               className={`px-6 py-2 text-sm font-semibold transition-all duration-300 rounded-full ${isYearly ? 'bg-white shadow-md text-slate-900' : 'text-slate-500'}`}
             >
               Yearly
-              <span className="bg-emerald-100 text-emerald-700 text-xs font-bold px-3 py-1 rounded-full">
+              <span className="bg-purple-100 text-purple-700 text-xs font-bold px-3 py-1 rounded-full">
             Save 20%
           </span>
             </button>
           </div>
         </div>
       </section>
-      <main className="relative z-10 max-w-6xl mx-auto px-4 pb-32">
-        <div className="grid lg:grid-cols-12 gap-8 items-start">
-          <div className="lg:col-span-7 space-y-4">
+      <main className="relative z-10 max-w-5xl mx-auto px-4 pb-32">
+        <div className="grid lg:grid-cols-12 gap-8 items-center">
+          <div className="md:col-span-6 space-y-4 ">
             {plans.map((plan) => {
               const isActive = selectedPlan === plan.id;
               return (
                 <div 
                   key={plan.id}
                   onClick={() => setSelectedPlan(plan.id)}
-                  className={`relative flex flex-col md:flex-row md:items-center justify-between p-6 rounded-2xl transition-all duration-300 border-2 cursor-pointer
+                  className={`relative flex flex-col md:flex-row md:items-center justify-between p-2 rounded-2xl transition-all duration-300 border-2 cursor-pointer
                     ${isActive 
-                      ? 'bg-blue-600 border-blue-600 text-white shadow-xl scale-[1.01]' 
-                      : 'bg-white border-slate-100 text-slate-900 hover:border-blue-200'
+                      ? 'bg-gradient-to-r from-purple-600 to-purple-800 border-purple-900 text-white shadow-xl scale-[1.01]' 
+                      : 'bg-white border-slate-100 text-slate-900 hover:border-purple-300 hover:shadow-lg'
                     }`}
                 >
                   <div className="flex-1 md:pr-8">
@@ -95,18 +96,18 @@ const PricingPage = () => {
                         className={`w-5 h-5 rounded flex items-center justify-center border transition-colors
                           ${isActive ? 'bg-white border-white' : 'bg-slate-50 border-slate-300'}`}
                       >
-                        {isActive && <Check size={14} className="text-blue-600 stroke-[4px]" />}
+                        {isActive && <Check size={14} className="text-purple-700 stroke-[4px]" />}
                       </div>
                       
                       <h3 className="text-xl font-bold">{plan.name}</h3>
                       {plan.popular && (
                         <span className={`flex items-center gap-1 text-[10px] uppercase tracking-wider font-bold px-2 py-0.5 rounded shadow-sm
-                          ${isActive ? 'bg-white text-blue-600' : 'bg-orange-100 text-orange-600'}`}>
+                          ${isActive ? 'bg-white text-purple-700' : 'bg-purple-100 text-purple-700'}`}>
                           <Flame size={12} fill="currentColor" /> Popular
                         </span>
                       )}
                     </div>
-                    <p className={`text-sm leading-snug ${isActive ? 'text-blue-100' : 'text-slate-500'}`}>
+                    <p className={`text-sm leading-snug ${isActive ? 'text-purple-100' : 'text-slate-500'}`}>
                       {plan.desc}
                     </p>
                   </div>
@@ -115,15 +116,15 @@ const PricingPage = () => {
                     <div className="text-3xl font-bold">
                       {plan.price}
                       {plan.price !== "Free" && (
-                        <span className={`text-sm font-normal ml-1 ${isActive ? 'text-blue-100' : 'text-slate-400'}`}>
+                        <span className={`text-sm font-normal ml-1 ${isActive ? 'text-purple-100' : 'text-slate-400'}`}>
                           /month
                         </span>
                       )}
                     </div>
                     <button className={`w-full md:w-32 py-2.5 rounded-lg font-bold transition-all active:scale-95
                       ${isActive 
-                        ? 'bg-white text-blue-600 shadow-lg' 
-                        : 'bg-blue-600 text-white hover:bg-blue-700'
+                        ? 'bg-white text-purple-700 shadow-lg hover:bg-purple-50' 
+                        : 'bg-gradient-to-r from-purple-500 to-purple-600 text-white hover:from-purple-600 hover:to-purple-800 shadow-md hover:shadow-lg'
                       }`}>
                       {plan.buttonText}
                     </button>
@@ -139,7 +140,7 @@ const PricingPage = () => {
                 {features.map((feature, idx) => (
                   <li key={idx} className="flex items-center justify-between group">
                     <span className="text-slate-700 font-semibold">{feature}</span>
-                    <div className="bg-blue-600 rounded-full p-1 shadow-md transition-transform group-hover:rotate-12">
+                    <div className="bg-gradient-to-br from-purple-600 to-purple-700 rounded-full p-1 shadow-md transition-transform group-hover:rotate-12 group-hover:scale-110">
                       <Check size={16} className="text-white stroke-[3px]" />
                     </div>
                   </li>
@@ -150,18 +151,6 @@ const PricingPage = () => {
         </div>
       </main>
 
-      <div className="absolute bottom-0 left-0 w-full flex items-end justify-center gap-1 px-4 opacity-20 pointer-events-none">
-        {[...Array(200)].map((_, i) => (
-          <div 
-            key={i} 
-            className="w-1.5 bg-slate-400 rounded-t-full"
-            style={{ 
-              height: `${Math.random() * 500 + 20}px`,
-              transition: 'height 1s ease-in-out'
-            }}
-          />
-        ))}
-      </div>
     </div>
   );
 };

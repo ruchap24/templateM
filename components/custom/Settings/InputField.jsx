@@ -8,7 +8,7 @@ function InputField({label, value, onHandleInputChange}) {
         type="text"
         value={value}
         onChange={(event) => onHandleInputChange(event.target.value)}
-        className="px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+        className="px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-purple-500 transition-all"
       />
     </div>
   )

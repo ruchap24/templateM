@@ -26,7 +26,7 @@ function EmailTemplateList() {
 
   return (
     <div>
-        <h2 className='font-bold text-xl text-primary mt-6'>Work Place</h2>
+        <h2 className='font-bold text-xl text-purple-700 mt-6'>My Email Templates</h2>
         {emailList?.length==0 ?
         <div className='flex justify-center mt-7 flex-col items-center'>
             <Image src={'/email.png'} alt='email' height=
@@ -37,12 +37,12 @@ function EmailTemplateList() {
             </div>
             :<div className='grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-5'>
               {emailList?.map((item,index)=>(
-                <div key={index} className='p-5 rounded-lg shadow-md border'>
-                  <Image src={'/emailbox.png'} alt='emailbox' width={200} height={200}/>
+                <div key={index} className='p-5 rounded-lg shadow-md border border-slate-200 hover:shadow-xl hover:border-purple-300 transition-all hover:-translate-y-1'>
+                  <Image src={'/emailbox.png'} alt='emailbox' width={200} height={200} className='mx-auto'/>
                   
-                    <h2 className='mt-2'>{item?.description}</h2>
+                    <h2 className='mt-2 text-slate-900 font-semibold'>{item?.description || 'Untitled Template'}</h2>
                     <Link href={'/editor/'+item.tid}>
-                    <Button className="mt-2 w-full">View/Edit</Button>
+                    <Button className="mt-2 w-full bg-gradient-to-r from-purple-600 to-purple-700 hover:from-purple-700 hover:to-purple-800 text-white shadow-md hover:shadow-lg transition-all">View/Edit</Button>
                     </Link>
                   </div>
               ))}

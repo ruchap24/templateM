@@ -50,7 +50,7 @@ function Canvas({viewHTMLCode, closeDialog}) {
   return (
     <div className='mt-20 flex justify-center'>
       <div className={`bg-white p-6 w-full ${screenSize=='desktop'?'max-w-2xl':'max-w-md'}
-      ${dragOver && 'bg-purple-100 p-4'}`}
+      ${dragOver && 'bg-purple-100 p-4 border-2 border-purple-300'}`}
       onDragOver={onDragOver}
       onDrop={()=>onDropHandle()}
       ref={htmlRef}

@@ -11,6 +11,8 @@ import { useConvex } from 'convex/react'
 import { useUserDetail } from '@/app/provider'
 import { Loader2 } from 'lucide-react';
 
+export const dynamic = 'force-dynamic';
+
 function Editor() {
   const [viewHTMLCode, setViewHtmlCode] = useState();
   const {templateId}=useParams();
@@ -36,9 +38,7 @@ function Editor() {
     setEmailTemplate(result?.design)
     setLoading(false);
   }
-  
-
-
+ 
   return (
     <div>
       <EditorHeader viewHTMLCode={(v) => setViewHtmlCode(v)} />

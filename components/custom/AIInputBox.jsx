@@ -71,11 +71,11 @@ function AIInputBox() {
   }
   return (
     <div className='mt-5'>
-        <p className='mb-2 text-lg text-gray-400'>
-            Provide details about your email template, such as the purpose, target audience, and any specific elements you want to include. The more details you provide, the better the AI can assist you in creating a tailored email template.
+        <p className='mb-2 text-lg text-slate-600'>
+            Describe your email template requirements. Include details about the purpose, target audience, key messaging, and design preferences. The more specific you are, the better our AI can create a tailored template for you.
         </p>  
-            <Textarea className="w-full h-40 mt-5 p-3 border border-gray-300 rounded-lg" placeholder="Enter your details here..." onChange={(e)=>setUserInput(e.target.value)}></Textarea>
-        <Button className='w-full mt-7 bg-blue-500 text-white hover:bg-blue-600' disabled={(userInput?.length==0 || loading)} onClick={OnGenerate}>
+            <Textarea className="w-full h-40 mt-5 p-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 transition-all" placeholder="Example: Create a welcome email for new customers with a modern design, including company logo, welcome message, and call-to-action button..." onChange={(e)=>setUserInput(e.target.value)}></Textarea>
+        <Button className='w-full mt-7 bg-gradient-to-r from-purple-600 to-purple-700 text-white hover:from-purple-700 hover:to-purple-800 shadow-md hover:shadow-xl transition-all' disabled={(userInput?.length==0 || loading)} onClick={OnGenerate}>
           {loading ? (
             <span className='flex gap-2 items-center'>
               <Loader2 className='animate-spin'/> Please wait...

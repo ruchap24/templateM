@@ -41,7 +41,7 @@ const googleLogin = useGoogleLogin({
     
   return (
     <div>
-        <Button onClick={googleLogin}>Get started</Button>
+        <Button onClick={googleLogin} className="bg-gradient-to-r from-purple-600 to-purple-700 hover:from-purple-700 hover:to-purple-800 text-white shadow-md hover:shadow-lg transition-all">Get started</Button>
     </div>
   );
 }

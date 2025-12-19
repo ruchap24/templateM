@@ -70,7 +70,7 @@ function TextComponent({style, content, textarea, id}) {
           onBlur={handleBlur}
           onKeyDown={handleKeyDown}
           style={processedStyle}
-          className='w-full border-2 border-blue-500 rounded p-2 focus:outline-none resize-none'
+          className='w-full border-2 border-purple-500 rounded p-2 focus:outline-none resize-none focus:ring-2 focus:ring-purple-300'
           autoFocus
         />
       ) : (

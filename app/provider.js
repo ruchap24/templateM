@@ -9,7 +9,8 @@ import { EmailTemplateContext } from '@/context/EmailTemplateContext';
 import { SelectedElementContext } from '@/context/SelectedElementContext';
 
 function Provider({children}) {
-    const convex = new ConvexReactClient(process.env.NEXT_PUBLIC_CONVEX_URL);
+    const convexUrl = process.env.NEXT_PUBLIC_CONVEX_URL;
+    const convex = convexUrl ? new ConvexReactClient(convexUrl) : null;
     const [userDetail, setUserDetail] = useState();
     const [screenSize,setScreenSize]=useState('desktop');
     const [dragElementLayout, setDragElementLayout] = useState();
@@ -50,23 +51,26 @@ function Provider({children}) {
       }
     },[selectedElement])
 
-  return (
-    <ConvexProvider client={convex}>
-    <GoogleOAuthProvider clientId={process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID}>
+  const content = (
+    <GoogleOAuthProvider clientId={process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID || ''}>
       <UserDetailContext.Provider value={{userDetail, setUserDetail}}>
         <ScreenSizeContext.Provider value={{screenSize,setScreenSize}}>
           <DragDropLayoutElement.Provider value={{dragElementLayout, setDragElementLayout}}>
             <EmailTemplateContext.Provider value={{emailTemplate, setEmailTemplate}}>
               <SelectedElementContext.Provider value={{selectedElement, setSelectedElement}}>
-              <div>{children}</div>
+                <div>{children}</div>
               </SelectedElementContext.Provider>
             </EmailTemplateContext.Provider>
           </DragDropLayoutElement.Provider>
         </ScreenSizeContext.Provider>
       </UserDetailContext.Provider>
-        </GoogleOAuthProvider>
-    </ConvexProvider>
+    </GoogleOAuthProvider>
   );
+
+  if (convex) {
+    return <ConvexProvider client={convex}>{content}</ConvexProvider>;
+  }
+  return content;
 }
 
 export default Provider;
