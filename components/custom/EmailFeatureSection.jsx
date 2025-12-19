@@ -91,7 +91,7 @@ const OperationsGraphic = () => (
       <div className="w-full h-[1px] bg-purple-600" />
       <div className="h-full w-[1px] bg-purple-600" />
     </div>
-    <div className="w-20 h-2  0 bg-gradient-to-br from-purple-600 to-purple-700 rounded-3xl shadow-2xl flex items-center justify-center text-white z-10 animate-spin-slow">
+    <div className="w-20 h-20 bg-gradient-to-br from-purple-600 to-purple-700 rounded-3xl shadow-2xl flex items-center justify-center text-white z-10 animate-spin-slow">
       <Settings size={32} />
     </div>
 
