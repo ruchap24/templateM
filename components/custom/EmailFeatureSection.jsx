@@ -146,7 +146,7 @@ export default function EmailFeatureSection() {
             Built for teams who create <span className="text-purple-700 bg-gradient-to-r from-purple-700 to-purple-900 bg-clip-text text-transparent">better emails, faster.</span>
           </h2>
           <p className="text-slate-500 text-lg md:text-xl max-w-3xl mx-auto font-medium">
-            Everything you need to design, manage, and scale email templates — without friction.
+            Everything you need to design, manage, and scale email templates without friction.
           </p>
         </div>
 

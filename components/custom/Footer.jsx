@@ -74,22 +74,22 @@ const Footer = () => {
               </ul>
             </div>
             <div>
-              <h4 className="font-bold text-purple-400 mb-6">Support</h4>
+              <h4 className="font-bold text-purple-700 mb-6">Support</h4>
               <ul className="space-y-4 text-slate-500 font-medium">
                 {['Help Center', 'Getting Started', 'Contact Support', 'Community Forums', 'Documentation'].map(link => <li key={link} className="hover:text-purple-600 cursor-pointer transition-colors">{link}</li>)}
               </ul>
             </div>
             <div className="lg:col-span-1 text-slate-500">
-              <h4 className="font-bold text-purple-400 mb-6">Contact Us</h4>
+              <h4 className="font-bold text-purple-700 mb-6">Contact Us</h4>
               <ul className="space-y-4">
-                <li className="flex items-center gap-3"><Mail className="w-4 h-4 text-slate-400" /> contact@company.com</li>
-                <li className="flex items-center gap-3"><Phone className="w-4 h-4 text-slate-400" /> (414) 687 - 5892</li>
-                <li className="flex items-start gap-3"><MapPin className="w-4 h-4 text-slate-400 mt-1" /> 794 McAllister St, SF</li>
+                <li className="flex items-center gap-3"><Mail className="w-4 h-4 text-slate-600" /> contact@company.com</li>
+                <li className="flex items-center gap-3"><Phone className="w-4 h-4 text-slate-600" /> (414) 687 - 5892</li>
+                <li className="flex items-start gap-3"><MapPin className="w-4 h-4 text-slate-600 mt-1" /> 794 McAllister St, SF</li>
               </ul>
             </div>
 
             <div>
-              <h4 className="font-bold text-purple-400 mb-6">Social</h4>
+              <h4 className="font-bold text-purple-700 mb-6">Social</h4>
               <div className="flex gap-3">
                 {[Facebook, Twitter, Linkedin, Youtube, Instagram].map((Icon, idx) => (
                   <div key={idx} className="w-9 h-9 bg-gradient-to-br from-purple-600 to-purple-700 rounded-full flex items-center justify-center text-white hover:from-purple-700 hover:to-purple-800 hover:-translate-y-1 transition-all cursor-pointer shadow-md hover:shadow-lg">
@@ -101,7 +101,7 @@ const Footer = () => {
           </div>
 
           <div className="text-center pt-4 border-t border-slate-100">
-            <p className="text-slate-400 text-sm font-medium">© 2024 EmailBuilder. All rights reserved.</p>
+            <p className="text-slate-600 text-sm font-medium">© 2024 EmailBuilder. All rights reserved.</p>
           </div>
         </div>
       </footer>
