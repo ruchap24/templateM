@@ -12,12 +12,11 @@ function Dashboard() {
 
   return (
     <div>
-      {/* <Header/> */}
-      <div className="px-10 md:px-28 lg:px-40 xl:px-56 mt-16">
-        <div className="flex justify-between items-center">
-          <h2 className="font-bold text-3xl text-slate-900">Welcome back, {userDetail?.name}</h2>
-          <Link href="/dashboard/create">
-            <Button className="bg-gradient-to-r from-purple-600 to-purple-700 hover:from-purple-700 hover:to-purple-800 text-white shadow-md hover:shadow-lg transition-all">
+      <div className="px-4 sm:px-6 md:px-10 lg:px-28 xl:px-40 2xl:px-56 mt-8 sm:mt-12 md:mt-16">
+        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
+          <h2 className="font-bold text-2xl sm:text-3xl text-slate-900">Welcome back, {userDetail?.name}</h2>
+          <Link href="/dashboard/create" className="w-full sm:w-auto">
+            <Button className="w-full sm:w-auto bg-gradient-to-r from-purple-600 to-purple-700 hover:from-purple-700 hover:to-purple-800 text-white shadow-md hover:shadow-lg transition-all text-sm sm:text-base">
               + Create New Email Template
             </Button>
           </Link>

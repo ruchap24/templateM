@@ -11,7 +11,7 @@ import { useMutation } from 'convex/react';
 import { api } from '@/convex/_generated/api';
 import { toast } from 'sonner';
 
-function EditorHeader({viewHTMLCode}) {
+function EditorHeader({viewHTMLCode, showElementsSidebar, showSettings, setShowElementsSidebar, setShowSettings}) {
   const { screenSize, setScreenSize } = useScreenSize();
   const router = useRouter();
   const { templateId } = useParams();
@@ -69,63 +69,108 @@ function EditorHeader({viewHTMLCode}) {
   }
   
   return (
-    <div className='p-4 shadow-sm flex justify-between items-center dark:bg-gray-900 dark:border-b dark:border-gray-800'>
-      <Link href="/">
-        <Image 
-          src='/logo.svg' 
-          alt='logo' 
-          width={160} 
-          height={150}
-          priority 
-        />
-      </Link>
-      
-      <div className='flex gap-3'>
-        <Button 
-          variant='ghost' 
-          onClick={() => setScreenSize('desktop')} 
-          className={`${screenSize === 'desktop' ? 'bg-purple-100 text-primary dark:bg-purple-900' : 'dark:text-gray-300'}`}
-        >
-          <Monitor className="mr-2" />Desktop
-        </Button>
-        <Button 
-          variant='ghost' 
-          onClick={() => setScreenSize('mobile')} 
-          className={`${screenSize === 'mobile' ? 'bg-purple-100 text-primary dark:bg-purple-900' : 'dark:text-gray-300'}`}
-        >
-          <Smartphone className="mr-2" />Mobile
-        </Button>
+    <div className='p-2 sm:p-4 shadow-sm flex flex-col gap-3 dark:bg-gray-900 dark:border-b dark:border-gray-800'>
+      {/* Top Row: Logo and Action Buttons */}
+      <div className='flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3'>
+        <Link href="/" className="flex-shrink-0">
+          <Image 
+            src='/logo.svg' 
+            alt='logo' 
+            width={120} 
+            height={112}
+            className="w-24 sm:w-40"
+            priority 
+          />
+        </Link>
+        
+        {/* Desktop/Mobile View + Code/Diff/Test/Save Buttons - Same Line */}
+        <div className='flex gap-2 sm:gap-3 flex-wrap items-center w-full sm:w-auto justify-end sm:justify-start'>
+          {/* Desktop/Mobile View Buttons */}
+          <div className='flex gap-2 sm:gap-3'>
+            <Button 
+              variant='ghost' 
+              size="sm"
+              onClick={() => setScreenSize('desktop')} 
+              className={`text-xs sm:text-sm ${screenSize === 'desktop' ? 'bg-purple-100 text-primary dark:bg-purple-900' : 'dark:text-gray-300'}`}
+            >
+              <Monitor className="mr-1 sm:mr-2 h-3 w-3 sm:h-4 sm:w-4" />
+              <span className="hidden sm:inline">Desktop</span>
+            </Button>
+            <Button 
+              variant='ghost' 
+              size="sm"
+              onClick={() => setScreenSize('mobile')} 
+              className={`text-xs sm:text-sm ${screenSize === 'mobile' ? 'bg-purple-100 text-primary dark:bg-purple-900' : 'dark:text-gray-300'}`}
+            >
+              <Smartphone className="mr-1 sm:mr-2 h-3 w-3 sm:h-4 sm:w-4" />
+              <span className="hidden sm:inline">Mobile</span>
+            </Button>
+          </div>
+
+          {/* Code, Diff, Test Email, Save Buttons */}
+          <div className='flex gap-2 sm:gap-3'>
+            <Button 
+              variant='ghost' 
+              size="sm"
+              className="hover:text-primary dark:hover:text-purple-400"
+              onClick={() => viewHTMLCode(true)}
+            >
+              <Code className="h-4 w-4 sm:h-5 sm:w-5" />
+            </Button>
+            
+            <Button 
+              variant='default' 
+              size="sm"
+              onClick={() => router.push('/checkcode')}
+              className="dark:bg-purple-800 dark:hover:bg-purple-700 text-xs sm:text-sm"
+            >
+              <span className="hidden sm:inline">Check Diff</span>
+              <span className="sm:hidden">Diff</span>
+            </Button>
+            <Button 
+              variant='outline'
+              size="sm"
+              className="dark:border-purple-700 dark:text-gray-200 text-xs sm:text-sm"
+            >
+              <span className="hidden sm:inline">Send Test Email</span>
+              <span className="sm:hidden">Test</span>
+            </Button>
+            <Button 
+              variant='default'
+              size="sm"
+              className="dark:bg-purple-800 dark:hover:bg-purple-700 text-xs sm:text-sm"
+              onClick={onSaveTemplate}
+            >
+              Save
+            </Button>
+          </div>
+        </div>
       </div>
       
-      <div className='flex gap-3'>
-        <Button 
-          variant='ghost' 
-          className="hover:text-primary dark:hover:text-purple-400"
-          onClick={() => viewHTMLCode(true)}
-        >
-          <Code className="mr-2" />
-        </Button>
-        
-        <Button 
-          variant='default' 
-          onClick={() => router.push('/checkcode')}
-          className="dark:bg-purple-800 dark:hover:bg-purple-700"
-        >
-          Check Diff
-        </Button>
-        <Button 
-          variant='outline'
-          className="dark:border-purple-700 dark:text-gray-200"
-        >
-          Send Test Email
-        </Button>
-        <Button 
-          variant='default'
-          className="dark:bg-purple-800 dark:hover:bg-purple-700"
-          onClick={onSaveTemplate}
-        >
-          Save Template
-        </Button>
+      {/* Bottom Row: Mobile Panel Toggle Buttons - Separate Line */}
+      <div className='lg:hidden flex gap-2 justify-end'>
+        {!showSettings && (
+          <button
+            onClick={() => {
+              setShowElementsSidebar(!showElementsSidebar);
+              if (showSettings) setShowSettings(false);
+            }}
+            className="bg-purple-600 hover:bg-purple-700 text-white px-3 py-1.5 rounded-md shadow-lg text-sm font-medium transition-colors"
+          >
+            Elements
+          </button>
+        )}
+        {!showElementsSidebar && (
+          <button
+            onClick={() => {
+              setShowSettings(!showSettings);
+              if (showElementsSidebar) setShowElementsSidebar(false);
+            }}
+            className="bg-purple-600 hover:bg-purple-700 text-white px-3 py-1.5 rounded-md shadow-lg text-sm font-medium transition-colors"
+          >
+            Settings
+          </button>
+        )}
       </div>
     </div>
   )

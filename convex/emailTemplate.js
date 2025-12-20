@@ -83,3 +83,27 @@ export const GetAllUserTemplate=query({
         return result;
     }
 })
+
+export const DeleteTemplate=mutation({
+    args:{
+        tid:v.string(),
+        email:v.string()
+    },
+    handler:async(ctx,args)=>{
+        try{
+            const result=await ctx.db.query('emailTemplates')
+                .filter(q=>q.and(q.eq(q.field('tid'),args.tid), q.eq(q.field('email'),args.email)))
+                .collect();
+            
+            if(result.length > 0){
+                await ctx.db.delete(result[0]._id);
+                return { success: true };
+            }
+            throw new Error('Template not found');
+        }
+        catch(e){
+            console.error("Error deleting template:", e);
+            throw e;
+        }
+    }
+})

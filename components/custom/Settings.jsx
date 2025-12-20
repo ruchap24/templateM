@@ -9,12 +9,12 @@ import TextAreaField from "./Settings/TextAreaField";
 import ToogleGroupField from "./Settings/ToogleGroupField";
 import DropdownField from "./Settings/DropdownField";
 import ImagePreview from "./Element/ImagePreview";
-import { AlignLeft, AArrowUp, CaseLower, CaseUpper } from "lucide-react";
+import { AlignLeft, AlignCenter, AlignRight, AArrowUp, CaseLower, CaseUpper } from "lucide-react";
 
 const TextAlignOptions = [
   { value: "left", icon: AlignLeft },
-  { value: "center", icon: AlignLeft },
-  { value: "right", icon: AlignLeft },
+  { value: "center", icon: AlignCenter },
+  { value: "right", icon: AlignRight },
 ];
 
 const TextTransformOptions = [
@@ -87,158 +87,226 @@ function Settings() {
     setSelectedElement({ ...selectedElement, layout: updatedLayout });
   };
 
+  // Helper function to get style value safely
+  const getStyleValue = (style, key, defaultValue = '') => {
+    if (!style || !style[key]) return defaultValue;
+    const val = style[key];
+    if (Array.isArray(val)) return val[0] || defaultValue;
+    if (typeof val === 'object' && val.value) return val.value;
+    return val;
+  };
+
   return (
-    <div className="p-5 flex flex-col gap-4">
-      <h2 className="font-bold text-xl">Settings</h2>
-      {element?.imageUrl && (
+    <div className="p-5 flex flex-col gap-4 overflow-y-auto max-h-[calc(100vh-80px)] bg-white border-l border-slate-200">
+      <h2 className="font-bold text-xl text-slate-900 mb-2 sticky top-0 bg-white pb-2 border-b border-slate-200">Settings</h2>
+      
+      {/* Image Preview Section */}
+      {(element?.imageUrl !== undefined || element?.type === 'Image' || element?.type === 'LogoHeader') && (
         <ImagePreview
           label="Image Preview"
-          value={element.imageUrl}
+          value={element.imageUrl || ''}
           onHandleInputChange={(value) =>
             onHandleInputChange("imageUrl", value)
           }
         />
       )}
-      {element?.content && (
+
+      {/* URL Field */}
+      <InputField
+        label="URL"
+        value={element?.url || '#'}
+        onHandleInputChange={(value) => onHandleInputChange("url", value)}
+      />
+
+      {/* Width Control */}
+      <SliderField
+        label="Width"
+        value={getStyleValue(element?.style, 'width', '100%')}
+        type="%"
+        max={100}
+        onHandleStyleChange={(value) =>
+          onHandleStyleChange("width", value)
+        }
+      />
+
+      {/* Height Control */}
+      <div className="flex flex-col gap-2 mt-4">
+        <label className="text-sm font-medium text-gray-700">Height</label>
+        <div className="flex gap-2 items-end">
+          <div className="flex-1">
+            {getStyleValue(element?.style, 'height', 'auto') === 'auto' ? (
+              <DropdownField
+                label=""
+                value="auto"
+                options={['auto', 'manual']}
+                onHandleStyleChange={(value) =>
+                  onHandleStyleChange("height", value === 'auto' ? 'auto' : '200px')
+                }
+              />
+            ) : (
+              <InputStyleField
+                label=""
+                value={getStyleValue(element?.style, 'height', '200px')}
+                type="px"
+                onHandleStyleChange={(value) =>
+                  onHandleStyleChange("height", value)
+                }
+              />
+            )}
+          </div>
+          {getStyleValue(element?.style, 'height', 'auto') !== 'auto' && (
+            <DropdownField
+              label=""
+              value="manual"
+              options={['auto', 'manual']}
+              onHandleStyleChange={(value) =>
+                onHandleStyleChange("height", value === 'auto' ? 'auto' : getStyleValue(element?.style, 'height', '200px'))
+              }
+            />
+          )}
+        </div>
+      </div>
+
+      {/* Background Color Picker */}
+      <ColorPickerField
+        label="Background Color"
+        value={getStyleValue(element?.style, 'backgroundColor', '#ffffff')}
+        onHandleStyleChange={(value) =>
+          onHandleStyleChange("backgroundColor", value)
+        }
+      />
+
+      {/* Content Field (for buttons, etc.) */}
+      {element?.content !== undefined && (
         <InputField
           label="Content"
-          value={element.content}
+          value={element.content || ''}
           onHandleInputChange={(value) =>
             onHandleInputChange("content", value)
           }
         />
       )}
-      {element?.textarea && (
+
+      {/* Text Area Field */}
+      {element?.textarea !== undefined && (
         <TextAreaField
           label="Text Area"
-          value={element.textarea}
+          value={element.textarea || ''}
           onHandleInputChange={(value) =>
             onHandleInputChange("textarea", value)
           }
         />
       )}
-      {element?.url && (
-        <InputField
-          label="URL"
-          value={element.url}
-          onHandleInputChange={(value) => onHandleInputChange("url", value)}
-        />
-      )}
-      {element?.style?.width && (
-        <SliderField
-          label="Width"
-          value={element.style.width}
-          type="%"
-          onHandleStyleChange={(value) =>
-            onHandleInputChange("width", value)
-          }
-        />
-      )}
-      {element?.style?.textAlign && (
+
+      {/* Text Align */}
+      {element?.style?.textAlign !== undefined && (
         <ToogleGroupField
           label="Text Align"
-          value={element.style.textAlign}
+          value={getStyleValue(element?.style, 'textAlign', 'left')}
           options={TextAlignOptions}
           onHandleStyleChange={(value) =>
             onHandleStyleChange("textAlign", value)
           }
         />
       )}
-      {element?.style?.backgroundColor && (
-        <ColorPickerField
-          label="Background Color"
-          value={element.style.backgroundColor}
-          onHandleStyleChange={(value) =>
-            onHandleStyleChange("backgroundColor", value)
-          }
-        />
-      )}
-      {element?.style?.color && (
+
+      {/* Text Color */}
+      {element?.style?.color !== undefined && (
         <ColorPickerField
           label="Text Color"
-          value={element.style.color}
+          value={getStyleValue(element?.style, 'color', '#000000')}
           onHandleStyleChange={(value) =>
             onHandleStyleChange("color", value)
           }
         />
       )}
-      {element?.style?.fontSize && (
+
+      {/* Font Size */}
+      {element?.style?.fontSize !== undefined && (
         <InputStyleField
           label="Font Size"
-          value={element.style.fontSize}
+          value={getStyleValue(element?.style, 'fontSize', '16px')}
+          type="px"
           onHandleStyleChange={(value) =>
-            onHandleInputChange("fontSize", value)
+            onHandleStyleChange("fontSize", value)
           }
         />
       )}
-      {element?.style?.textTransform && (
+
+      {/* Text Transform */}
+      {element?.style?.textTransform !== undefined && (
         <ToogleGroupField
           label="Text Transform"
-          value={element.style.textTransform}
+          value={getStyleValue(element?.style, 'textTransform', 'none')}
           options={TextTransformOptions}
           onHandleStyleChange={(value) =>
             onHandleStyleChange("textTransform", value)
           }
         />
       )}
-      {element?.style?.padding && (
-        <InputStyleField
-          label="Padding"
-          value={element.style.padding}
-          onHandleStyleChange={(value) =>
-            onHandleInputChange("padding", value)
-          }
-        />
-      )}
-      {element?.style?.margin && (
-        <InputStyleField
-          label="Margin"
-          value={element.style.margin}
-          onHandleStyleChange={(value) =>
-            onHandleInputChange("margin", value)
-          }
-        />
-      )}
-      {element?.style?.borderRadius && (
-        <SliderField
-          label="Border Radius"
-          value={element.style.borderRadius}
-          onHandleStyleChange={(value) =>
-            onHandleInputChange("borderRadius", value)
-          }
-        />
-      )}
-      {element?.style?.fontWeight && (
+      {/* Padding Control */}
+      <InputStyleField
+        label="Padding"
+        value={getStyleValue(element?.style, 'padding', '10px')}
+        type="px"
+        onHandleStyleChange={(value) =>
+          onHandleStyleChange("padding", value)
+        }
+      />
+
+      {/* Margin Control */}
+      <InputStyleField
+        label="Margin"
+        value={getStyleValue(element?.style, 'margin', '0px')}
+        type="px"
+        onHandleStyleChange={(value) =>
+          onHandleStyleChange("margin", value)
+        }
+      />
+
+      {/* Border Radius */}
+      <SliderField
+        label="Border Radius"
+        value={getStyleValue(element?.style, 'borderRadius', '5px')}
+        type="px"
+        max={50}
+        onHandleStyleChange={(value) =>
+          onHandleStyleChange("borderRadius", value)
+        }
+      />
+      {/* Font Weight */}
+      {element?.style?.fontWeight !== undefined && (
         <DropdownField
           label="Font Weight"
-          value={element.style.fontWeight}
-          options={["normal", "bold"]}
+          value={getStyleValue(element?.style, 'fontWeight', 'normal')}
+          options={["normal", "bold", "300", "400", "500", "600", "700"]}
           onHandleStyleChange={(value) =>
-            onHandleInputChange("fontWeight", value)
+            onHandleStyleChange("fontWeight", value)
           }
         />
       )}
-      <div>
-        <h2 className="font-bold mb-2">Outer Style</h2>
-        {element?.outerStyle?.backgroundColor && (
-          <ColorPickerField
-            label="Outer Background Color"
-            value={element.outerStyle.backgroundColor}
-            onHandleStyleChange={(value) =>
-              onHandleOuterStyleChange("backgroundColor", value)
-            }
-          />
-        )}
-        {element?.outerStyle?.justifyContent && (
-          <ToogleGroupField
-            label="Align"
-            value={element.outerStyle.justifyContent}
-            options={TextAlignOptions}
-            onHandleStyleChange={(value) =>
-              onHandleOuterStyleChange("justifyContent", value)
-            }
-          />
-        )}
+      {/* Outer Style Section */}
+      <div className="mt-4 pt-4 border-t border-slate-200">
+        <h2 className="font-bold text-lg mb-4 text-slate-900">Outer Style</h2>
+        
+        {/* Outer Background Color */}
+        <ColorPickerField
+          label="Outer Background Color"
+          value={getStyleValue(element?.outerStyle, 'backgroundColor', '#ffffff')}
+          onHandleStyleChange={(value) =>
+            onHandleOuterStyleChange("backgroundColor", value)
+          }
+        />
+
+        {/* Alignment Controls */}
+        <ToogleGroupField
+          label="Alignment"
+          value={getStyleValue(element?.outerStyle, 'justifyContent', 'center')}
+          options={TextAlignOptions}
+          onHandleStyleChange={(value) =>
+            onHandleOuterStyleChange("justifyContent", value)
+          }
+        />
       </div>
     </div>
   );

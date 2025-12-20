@@ -48,8 +48,8 @@ function Canvas({viewHTMLCode, closeDialog}) {
     }
   }
   return (
-    <div className='mt-20 flex justify-center'>
-      <div className={`bg-white p-6 w-full ${screenSize=='desktop'?'max-w-2xl':'max-w-md'}
+    <div className='mt-8 sm:mt-12 md:mt-20 flex justify-center px-2 sm:px-4'>
+      <div className={`bg-white p-4 sm:p-6 w-full ${screenSize=='desktop'?'max-w-2xl':'max-w-md'}
       ${dragOver && 'bg-purple-100 p-4 border-2 border-purple-300'}`}
       onDragOver={onDragOver}
       onDrop={()=>onDropHandle()}
@@ -60,7 +60,7 @@ function Canvas({viewHTMLCode, closeDialog}) {
             {getLayoutComponent(layout)}
           </div>
         )):
-        <h2 className='p-4 text-center bg-gray-100 border border-dashed'>Add Layout Here</h2>}
+        <h2 className='p-4 text-center bg-gray-100 border border-dashed text-sm sm:text-base'>Add Layout Here</h2>}
       </div>
       <ViewHtmlDialog openDialog={viewHTMLCode} htmlCode={htmlCode} closeDialog={closeDialog}/>
     </div>

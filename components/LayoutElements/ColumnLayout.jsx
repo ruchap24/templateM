@@ -119,8 +119,11 @@ function ColumnLayout({ layout }) {
           </div>
         ))}
         {selectedElement?.layout?.id == layout?.id && (
-          <div className="absolute -right-10 cursor-pointer bg-gray-100 p-2 rounded-full hover:scale-105 transition-all hover:shadow-md" onClick={()=>dragElementLayout(layout?.id)}>
-            <Trash className="h-4 w-4 text-red-500" />
+          <div className="absolute -right-8 sm:-right-10 top-0 cursor-pointer bg-red-500 hover:bg-red-600 text-white p-2 rounded-full hover:scale-105 transition-all hover:shadow-md z-10" onClick={(e) => {
+            e.stopPropagation();
+            deleteLayout(layout?.id);
+          }}>
+            <Trash className="h-4 w-4" />
           </div>
         )}
       </div>
